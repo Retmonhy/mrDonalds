@@ -4,11 +4,17 @@ import headLogo from "../images/logo.svg";
 import loginImage from "../images/sign.svg";
 
 const HeaderTag = styled.header`
+position: fixed;
+z-index: 100000;
+top: 0;
+left: 0; rigth: 0;
+width: 100%;
+
 display: flex;
 justify-content: space-between;
 align-items: center;
 heigth: 80px;
-padding: 20px 30px;
+padding: 5px 30px;
 background: #299B01;
 `;
 
