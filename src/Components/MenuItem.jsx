@@ -11,6 +11,8 @@ margin-bottom: 30px;
     position: relative;
     width: 400px;
     height: 155px;
+    cursor: pointer;
+    transition: 0.3s;
     img {
         width: 100%;
         height: 100%;
@@ -19,14 +21,22 @@ margin-bottom: 30px;
     .descWrapper{position: absolute; top: 0; left: 0; padding-left: 15px; padding-top: 5px;}
     p{ color: #fff; font-size: 30px; line-height: 35px; z-index: 2;}
     
+    &:hover{
+        img{filter: brightness(35%);};
+        transform: scale(1.05);
+    }
 }
 `;
-    const ruble = '\u20BD';
-
-
 const MenuItem = (props) => {
+
+    const openModal = () => {
+       props.setOpenItem(props)
+    }
     return(
-        <ListItem key={props.id} imgUrl={props.img}>
+        <ListItem 
+        key={props.id} 
+        imgUrl={props.img} 
+        onClick={openModal} >
             <div className="wrapper">
                 <img src={props.img} alt="Картинка Меню"/>
                 <div className="descWrapper">

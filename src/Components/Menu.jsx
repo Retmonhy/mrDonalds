@@ -20,12 +20,12 @@ const BannerMenu = styled.div`
 `;
 
 
-const Menu = ({ListItem}) => {
+const Menu = ({ ListItem, setOpenItem }) => {
     return (
         <MenuStyled>
           <BannerMenu> <img src={BannerPicture} atl='BannerPicture'/></BannerMenu> 
-            <MenuChapter chapterName='Бургеры' menuItems={ListItem.burger}/>
-            <MenuChapter chapterName='Напитки и прочее' menuItems={ListItem.other}/>
+            <MenuChapter chapterName='Бургеры' menuItems={ListItem.burger} setOpenItem={setOpenItem}/>
+            <MenuChapter chapterName='Напитки и прочее' menuItems={ListItem.other} setOpenItem={setOpenItem}/>
         </MenuStyled>
     );
 }

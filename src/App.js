@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {createGlobalStyle} from "styled-components";
 import Header from "./Components/Header";
 import Menu from './Components/Menu';
-import dbMenu from "./DBMenu"
+import dbMenu from "./DBMenu";
+import { ModalItem}  from "./Components/ModalItem";
 
 const GlobalStyles = createGlobalStyle`
 html, body{ box-sizing: border-box; margin: 0; padding: 0;}
@@ -18,11 +19,15 @@ button{ cursor: pointer;}
 
 
 function App() {
+
+  const [openItem, setOpenItem] = useState(null);
+  console.log(openItem)
   return (
     <React.Fragment>
-      <GlobalStyles/>
+        <GlobalStyles/>
         <Header></Header>
-        <Menu ListItem={dbMenu}/>
+        <Menu ListItem={dbMenu} setOpenItem={setOpenItem}/>
+        <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
     </React.Fragment>
   );
 }
