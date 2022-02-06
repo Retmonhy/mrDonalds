@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import headLogo from "../images/logo.svg";
-import loginImage from "../images/sign.svg";
+import headLogo from "../../images/logo.svg";
+import loginImage from "../../images/sign.svg";
 
 const HeaderTag = styled.header`
 position: fixed;

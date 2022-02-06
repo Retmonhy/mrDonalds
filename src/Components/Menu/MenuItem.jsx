@@ -28,11 +28,10 @@ margin-bottom: 30px;
 }
 `;
 const MenuItem = (props) => {
-
-    const openModal = () => {
-       props.setOpenItem(props)
-    }
+    
+    const openModal = () => props.setOpenItem(props);
     return(
+
         <ListItem 
         key={props.id} 
         imgUrl={props.img} 

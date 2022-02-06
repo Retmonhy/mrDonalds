@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { Order } from '../Order/Order';
 
 
 const Overlay = styled.div`
@@ -66,13 +67,15 @@ font-size: 21px;
 color: #fff;
 `;
 
-export const ModalItem = ({ openItem, setOpenItem }) => {
-    
+export const ModalItem = ({ openItem, setOpenItem, order, setOrder }) => {
     const closeModal = (e) => {
         if(e.target.id === 'overlay') setOpenItem(null);
     }
 
-    if(!openItem) return null;
+    const addToOrder = () => {
+        setOrder([...order, openItem]);
+        setOpenItem(null)
+    }
 
     return (
         <Overlay  id="overlay" onClick={closeModal}>
@@ -85,7 +88,7 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
                         {style: "currency", currency: "RUB"})}</H2>     
                     </ElemWrapper>
                     <ElemWrapper>
-                        <ModalButton>Добавить</ModalButton>
+                        <ModalButton onClick={() => addToOrder(openItem)}>Добавить</ModalButton>
                     </ElemWrapper>
                 </ModalWrapper>
             </ModalWindow>

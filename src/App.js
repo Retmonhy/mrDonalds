@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {createGlobalStyle} from "styled-components";
-import Header from "./Components/Header";
-import Menu from './Components/Menu';
+import Header from "./Components/Header/Header";
+import Menu from './Components/Menu/Menu';
 import dbMenu from "./DBMenu";
-import { ModalItem }  from "./Components/ModalItem";
-import { Order }  from "./Components/Order";
+import { ModalItem }  from "./Components/Modal/ModalItem";
+import { Order }  from "./Components/Order/Order";
+import useOpenItem from "./Components/Hooks/useOpenItem";
+import useOrder from "./Components/Hooks/useOrder"
 
 const GlobalStyles = createGlobalStyle`
 html, body{ box-sizing: border-box; margin: 0; padding: 0;}
@@ -21,15 +23,16 @@ button{ cursor: pointer;}
 
 function App() {
 
-  const [openItem, setOpenItem] = useState(null);
-  console.log(openItem)
+  const openItem = useOpenItem();
+  const order = useOrder();
+
   return (
     <React.Fragment>
         <GlobalStyles/>
         <Header></Header>
-        <Order></Order>
-        <Menu ListItem={dbMenu} setOpenItem={setOpenItem}/>
-        <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
+        <Order {...order}></Order>
+        <Menu ListItem={dbMenu} {...openItem}/>
+        {openItem.openItem && <ModalItem {...openItem} {...order}/>}
     </React.Fragment>
   );
 }

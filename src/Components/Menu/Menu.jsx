@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuChapter from './MenuChapter';
-import BannerPicture from "../images/banner.png"
+import BannerPicture from "../../images/banner.png"
 
 
 const MenuStyled = styled.section`
@@ -22,7 +22,8 @@ const BannerMenu = styled.div`
 `;
 
 
-const Menu = ({ ListItem, setOpenItem }) => {
+const Menu = ({ ListItem, openItem, setOpenItem }) => {
+    
     return (
         <MenuStyled>
           <BannerMenu> <img src={BannerPicture} atl='BannerPicture'/></BannerMenu> 

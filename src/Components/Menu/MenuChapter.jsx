@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import MenuItem from "./MenuItem";
-import { setOpenItem } from "../App"
 
 
 const Ul = styled.ul`
@@ -23,6 +22,7 @@ const MenuChapter = ({chapterName, menuItems, setOpenItem}) => {
                 {
                     menuItems.map(item =>  <MenuItem 
                         key={item.id}
+                        id={item.id}
                         name={item.name}
                         img={item.img}
                         price={item.price}
