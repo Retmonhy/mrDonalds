@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 
 
@@ -56,7 +56,7 @@ font-size: 30px;
 line-height: 53px;
 `;
 
-const ModalButton = styled.button`
+export const ModalButton = styled.button`
 width: 250px;
 padding: 20px;
 margin: 0 auto;

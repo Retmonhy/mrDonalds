@@ -47,7 +47,7 @@ const Wrapper = styled.div`
 export default function Header() {
     return (
         <HeaderTag>
-            <Wrapper className="wrapper">
+            <Wrapper as="a" href="/" className="wrapper">
                 <img src={headLogo} alt="MrDonald's"></img>
                 <H1>MrDonald's</H1>
             </Wrapper>

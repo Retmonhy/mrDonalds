@@ -3,7 +3,8 @@ import {createGlobalStyle} from "styled-components";
 import Header from "./Components/Header";
 import Menu from './Components/Menu';
 import dbMenu from "./DBMenu";
-import { ModalItem}  from "./Components/ModalItem";
+import { ModalItem }  from "./Components/ModalItem";
+import { Order }  from "./Components/Order";
 
 const GlobalStyles = createGlobalStyle`
 html, body{ box-sizing: border-box; margin: 0; padding: 0;}
@@ -26,6 +27,7 @@ function App() {
     <React.Fragment>
         <GlobalStyles/>
         <Header></Header>
+        <Order></Order>
         <Menu ListItem={dbMenu} setOpenItem={setOpenItem}/>
         <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
     </React.Fragment>
