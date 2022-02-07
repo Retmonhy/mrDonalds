@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
 
 const ListItem = styled.li`
 position: relative;
@@ -40,8 +41,7 @@ const MenuItem = (props) => {
                 <img src={props.img} alt="Картинка Меню"/>
                 <div className="descWrapper">
                     <p className='item-name'>{props.name}</p>
-                    <p className="item-cost">{props.price.toLocaleString("ru-RU",
-                    {style: "currency", currency: "RUB"})}</p>
+                    <p className="item-cost">{localizeCost(props.price)}</p>
                 </div>
             </div>
         </ListItem>

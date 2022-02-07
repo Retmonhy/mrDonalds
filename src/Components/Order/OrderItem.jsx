@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { DivFlex, Span } from './Order';
 import trashSvg from "../../images/trash.svg";
-import useTotalAmount from "../Hooks/useTotalAmount"
+import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
+
 
 const TrashButton = styled.button`
     width: 20px;
@@ -13,9 +14,8 @@ const TrashButton = styled.button`
     background-size: cover;
 `;
 
-const OrderItem = ({ position }) => {
+const OrderItem = ({ position, amount }) => {
     const [positionShowed, setPositionShowed] = useState(true);
-
     return (
     <>
     {positionShowed && <li className="order-item">
@@ -23,7 +23,7 @@ const OrderItem = ({ position }) => {
             <span className="position-name">{position.name}</span>
             <div className="position-sum">
                 <Span className="position-count">1</Span>
-                <Span margin={'15px'} className="position-cost">{position.price}</Span>  
+                <Span margin={'15px'} className="position-cost">{localizeCost(position.price)}</Span>  
                 <TrashButton onClick={() => setPositionShowed(false)}/> 
             </div>
         </DivFlex>

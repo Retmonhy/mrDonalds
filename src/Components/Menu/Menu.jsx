@@ -26,7 +26,7 @@ const Menu = ({ ListItem, openItem, setOpenItem }) => {
     
     return (
         <MenuStyled>
-          <BannerMenu> <img src={BannerPicture} atl='BannerPicture'/></BannerMenu> 
+          <BannerMenu> <img src={BannerPicture} alt='BannerPicture'/></BannerMenu> 
             <MenuChapter chapterName='Бургеры' menuItems={ListItem.burger} setOpenItem={setOpenItem}/>
             <MenuChapter chapterName='Напитки и прочее' menuItems={ListItem.other} setOpenItem={setOpenItem}/>
         </MenuStyled>

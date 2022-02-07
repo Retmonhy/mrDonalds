@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
-import { Order } from '../Order/Order';
+import { ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 
+import PositionAmount from "./PositionsAmount";
+import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
 
 const Overlay = styled.div`
 position: fixed;
@@ -45,29 +47,12 @@ const ModalWrapper = styled.div`
 
 `;
 
-const ElemWrapper = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-`;
-
 const H2 = styled.h2`
 font-size: 30px;
 line-height: 53px;
 `;
 
-export const ModalButton = styled.button`
-width: 250px;
-padding: 20px;
-margin: 0 auto;
-background: #299B01;
-border: none;
-font-size: 21px;
-color: #fff;
-`;
-
-export const ModalItem = ({ openItem, setOpenItem, order, setOrder }) => {
+export const ModalItem = ({ openItem, setOpenItem, order, setOrder}) => {
     const closeModal = (e) => {
         if(e.target.id === 'overlay') setOpenItem(null);
     }
@@ -76,7 +61,6 @@ export const ModalItem = ({ openItem, setOpenItem, order, setOrder }) => {
         setOrder([...order, openItem]);
         setOpenItem(null)
     }
-
     return (
         <Overlay  id="overlay" onClick={closeModal}>
             <ModalWindow id="modalWindow" openItem={openItem}>
@@ -84,11 +68,11 @@ export const ModalItem = ({ openItem, setOpenItem, order, setOrder }) => {
                 <ModalWrapper>
                     <ElemWrapper>
                     <H2>{openItem.name}</H2> 
-                    <H2>{openItem.price.toLocaleString("ru-RU",
-                        {style: "currency", currency: "RUB"})}</H2>     
+                    <H2>{localizeCost(openItem.price)   }</H2>     
                     </ElemWrapper>
+                    <PositionAmount price={openItem.price} />
                     <ElemWrapper>
-                        <ModalButton onClick={() => addToOrder(openItem)}>Добавить</ModalButton>
+                        <ButtonElem onClick={() => {addToOrder()}}>Добавить</ButtonElem>
                     </ElemWrapper>
                 </ModalWrapper>
             </ModalWindow>

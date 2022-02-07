@@ -8,6 +8,7 @@ import { Order }  from "./Components/Order/Order";
 import useOpenItem from "./Components/Hooks/useOpenItem";
 import useOrder from "./Components/Hooks/useOrder"
 
+
 const GlobalStyles = createGlobalStyle`
 html, body{ box-sizing: border-box; margin: 0; padding: 0;}
 body{font-size: 20px; font-family: Roboto, sans-serif; }
@@ -18,6 +19,11 @@ p, ul { padding: 0; margin: 0;}
 ul { list-style: none;}
 button{ cursor: pointer;}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
 `; 
 
 
@@ -25,14 +31,14 @@ function App() {
 
   const openItem = useOpenItem();
   const order = useOrder();
-
+  
   return (
     <React.Fragment>
         <GlobalStyles/>
         <Header></Header>
         <Order {...order}></Order>
         <Menu ListItem={dbMenu} {...openItem}/>
-        {openItem.openItem && <ModalItem {...openItem} {...order}/>}
+        {openItem.openItem && <ModalItem {...openItem} {...order} />}
     </React.Fragment>
   );
 }

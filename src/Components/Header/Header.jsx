@@ -52,7 +52,7 @@ export default function Header() {
                 <H1>MrDonald's</H1>
             </Wrapper>
             <ButtonLogin>
-            <img src={loginImage} alt="login Image"></img>
+            <img src={loginImage} alt="login"></img>
             <span>Войти</span>
             </ButtonLogin>
         </HeaderTag>

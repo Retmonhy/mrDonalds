@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { ModalButton } from "../Modal/ModalItem";
+import { ButtonElem } from "../Supp/SuppComp/SuppComp";
 import OrderItem from "./OrderItem";
 import OrderTotal from "./OrderTotal";
-import useTotalAmount from "../Hooks/useTotalAmount"
 
 
 
@@ -29,32 +28,17 @@ export const Span = styled.span`
     margin : {({{margin}}) => margin ? margin : "unset" };`;
 
 export const Order = ({order, setOrder}) => {
-    const totalAmount = useTotalAmount(); 
-    // const totalAmountCalculation = () => {
-        // const totalArray = document.querySelectorAll(".order-list .position-count");
-        // console.log(totalArray)
-        // totalAmount.setTotalAmount(totalArray.reduce((prev, item) => prev += +item.textContent, 0))
-        // }
-        
-        // useEffect(() => {
-            //     const totalArray = document.querySelectorAll(".order-list .position-count");
-            //     let ret = 0;
-            //     if(totalArray.length) totalAmount.setTotalAmount(totalArray.forEach((item) => ret += +(item.textContent)))
-            // })
-            
-    
     return (
         
         <OrderStyled>
             <OrderHeader>ВАШ ЗАКАЗ</OrderHeader>
             <OrderList className="order-list">
                 {
-                    
                     order.map( item => <OrderItem position={item} key={item.id}/> )
                 }
             </OrderList>
-            <OrderTotal fullOrder={order} totalAmount={totalAmount.totalAmount}></OrderTotal>
-            <ModalButton>Оформить</ModalButton>
+            <OrderTotal fullOrder={order} ></OrderTotal>
+            <ButtonElem>Оформить</ButtonElem>
         </OrderStyled>
     );
 }
