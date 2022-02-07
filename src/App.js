@@ -6,8 +6,8 @@ import dbMenu from "./DBMenu";
 import { ModalItem }  from "./Components/Modal/ModalItem";
 import { Order }  from "./Components/Order/Order";
 import useOpenItem from "./Components/Hooks/useOpenItem";
-import useOrder from "./Components/Hooks/useOrder"
-import useAmount from "./Components/Hooks/useAmount"
+import useOrder from "./Components/Hooks/useOrder";
+import Context from "./context";
 
 
 const GlobalStyles = createGlobalStyle`
@@ -31,17 +31,22 @@ input::-webkit-inner-spin-button {
 function App() {
 
   const openItem = useOpenItem();
-  const order = useOrder();
+  const orderObj = useOrder();
+  const { order, setOrder } = orderObj; 
 
-    
+  const removeOrder = (id) => {
+    setOrder(order.filter((order) => order.openItem.id !== id))
+  }  
+
+
   return (
-    <React.Fragment>
-        <GlobalStyles/>
-        <Header></Header>
-        <Order {...order}></Order>
-        <Menu ListItem={dbMenu} {...openItem} />
-        {openItem.openItem && <ModalItem {...openItem} {...order} />}
-    </React.Fragment>
+    <Context.Provider value={{ removeOrder }}>
+      <GlobalStyles/>
+      <Header/>
+      <Order {...orderObj}></Order>
+      <Menu ListItem={dbMenu} {...openItem} />
+      {openItem.openItem && <ModalItem {...openItem} {...orderObj} />}
+    </Context.Provider>
   );
 }
 
