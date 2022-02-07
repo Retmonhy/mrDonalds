@@ -27,14 +27,16 @@ export const Span = styled.span`
     margin-left: 20px; 
     margin : {({{margin}}) => margin ? margin : "unset" };`;
 
-export const Order = ({order, setOrder}) => {
+export const Order = ({order, setOrder, amount}) => {
+    console.log('order = ' , order)
+    // order = [amount, {openItem}
     return (
         
         <OrderStyled>
             <OrderHeader>ВАШ ЗАКАЗ</OrderHeader>
             <OrderList className="order-list">
                 {
-                    order.map( item => <OrderItem position={item} key={item.id}/> )
+                    order.map( item => <OrderItem position={item.openItem} amount={item.amount} key={item.openItem.id}/> )
                 }
             </OrderList>
             <OrderTotal fullOrder={order} ></OrderTotal>

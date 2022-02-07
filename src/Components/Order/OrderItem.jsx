@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { DivFlex, Span } from './Order';
 import trashSvg from "../../images/trash.svg";
-import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
+import { localizeCost } from "../Supp/SuppFunc/SuppFunctions";
+import Context from "../../context";
 
 
 const TrashButton = styled.button`
@@ -15,16 +16,18 @@ const TrashButton = styled.button`
 `;
 
 const OrderItem = ({ position, amount }) => {
-    const [positionShowed, setPositionShowed] = useState(true);
+    
+    const { removeOrder } = useContext(Context);
+
     return (
     <>
-    {positionShowed && <li className="order-item">
+    {<li className="order-item">
         <DivFlex>
             <span className="position-name">{position.name}</span>
             <div className="position-sum">
-                <Span className="position-count">1</Span>
-                <Span margin={'15px'} className="position-cost">{localizeCost(position.price)}</Span>  
-                <TrashButton onClick={() => setPositionShowed(false)}/> 
+                <Span className="position-count">{amount}</Span>
+                <Span margin={'15px'} className="position-cost">{localizeCost(position.price * amount)}</Span>  
+                <TrashButton onClick={() => removeOrder(position.id)}/> 
             </div>
         </DivFlex>
     </li>
