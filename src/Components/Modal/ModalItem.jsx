@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 
 import PositionAmount from "./PositionsAmount";
-import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
+import { localizeCost } from "../Supp/SuppFunc/SuppFunctions";
+import useAmount from '../Hooks/useAmount'
 
 const Overlay = styled.div`
 position: fixed;
@@ -52,25 +53,31 @@ font-size: 30px;
 line-height: 53px;
 `;
 
-export const ModalItem = ({ openItem, setOpenItem, order, setOrder}) => {
+export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
+
+    /* const {amount, setAmount, onChange} = amountObj; */
+    const amountObj = useAmount();
+    const {amount, setAmount, ...other} = amountObj;
+
     const closeModal = (e) => {
         if(e.target.id === 'overlay') setOpenItem(null);
     }
 
     const addToOrder = () => {
-        setOrder([...order, openItem]);
+        setOrder([...order, {openItem, amount: amount}]);
         setOpenItem(null)
     }
+
     return (
         <Overlay  id="overlay" onClick={closeModal}>
             <ModalWindow id="modalWindow" openItem={openItem}>
                 <ModalBanner img={openItem.img}/>
                 <ModalWrapper>
                     <ElemWrapper>
-                    <H2>{openItem.name}</H2> 
-                    <H2>{localizeCost(openItem.price)   }</H2>     
+                    <H2>{ openItem.name }</H2> 
+                    <H2>{ localizeCost(openItem.price) }</H2>     
                     </ElemWrapper>
-                    <PositionAmount price={openItem.price} />
+                    <PositionAmount price={openItem.price} {...amountObj}/>
                     <ElemWrapper>
                         <ButtonElem onClick={() => {addToOrder()}}>Добавить</ButtonElem>
                     </ElemWrapper>

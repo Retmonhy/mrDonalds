@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import TotalCost from "./TotalCost";
-import { useAmount } from "../Hooks/useAmount";
-
 
 const InputCount = styled.input`
     width: 40px;
@@ -26,14 +24,13 @@ const ElemWrapper = styled.div`
     align-items: center;
 `;
 
-const PositionsAmount = ({price}) => {
-    const {amount, setAmount, onChange} = useAmount();
+const PositionsAmount = ({price, amount, setAmount, onChange}) => {
     return (
         <div style={{width: "100%",}}>
             <ElemWrapper>
                 <span>Количество</span>
                 <div>
-                    <ButtonCount disabled={amount <= 1} onClick={() => {setAmount(amount - 1)}}>-</ButtonCount>
+                    <ButtonCount disabled={amount <= 1} onClick={() => {setAmount( amount - 1)}}>-</ButtonCount>
                     <InputCount type="number" value={amount <= 1 ? 1 : amount} onChange={onChange}/>
                     <ButtonCount onClick={() => {setAmount(amount + 1)}}>+</ButtonCount>
                 </div>

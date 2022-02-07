@@ -15,16 +15,23 @@ const TrashButton = styled.button`
 `;
 
 const OrderItem = ({ position, amount }) => {
+    
     const [positionShowed, setPositionShowed] = useState(true);
+
+    const removeFromOrder = () => {
+
+    };
+
+    // console.log('amount = ', amount)
     return (
     <>
     {positionShowed && <li className="order-item">
         <DivFlex>
             <span className="position-name">{position.name}</span>
             <div className="position-sum">
-                <Span className="position-count">1</Span>
-                <Span margin={'15px'} className="position-cost">{localizeCost(position.price)}</Span>  
-                <TrashButton onClick={() => setPositionShowed(false)}/> 
+                <Span className="position-count">{amount}</Span>
+                <Span margin={'15px'} className="position-cost">{localizeCost(position.price * amount)}</Span>  
+                <TrashButton onClick={() => {setPositionShowed(false); removeFromOrder();}}/> 
             </div>
         </DivFlex>
     </li>
