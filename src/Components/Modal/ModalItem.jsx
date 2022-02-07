@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from "styled-components";
 import { ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 
 import PositionAmount from "./PositionsAmount";
 import { localizeCost } from "../Supp/SuppFunc/SuppFunctions";
-import useAmount from '../Hooks/useAmount'
+import useAmount from '../Hooks/useAmount';
+import Context from "../../context";
 
 const Overlay = styled.div`
 position: fixed;
@@ -35,7 +36,7 @@ const ModalBanner = styled.div`
     top: 0; left: 0;
     background: #000 url(${({img}) => (img)}) center center;
     background-size: cover;
-    border-radius: 10px 10px 0 0 
+    border-radius: 10px 10px 0 0; 
 `;
 
 const ModalWrapper = styled.div`
@@ -68,6 +69,8 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
         setOpenItem(null)
     }
 
+    const { changePositionAmount } = useContext(Context);
+
     return (
         <Overlay  id="overlay" onClick={closeModal}>
             <ModalWindow id="modalWindow" openItem={openItem}>
@@ -79,7 +82,7 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
                     </ElemWrapper>
                     <PositionAmount price={openItem.price} {...amountObj}/>
                     <ElemWrapper>
-                        <ButtonElem onClick={() => {addToOrder()}}>Добавить</ButtonElem>
+                        <ButtonElem onClick={() => {addToOrder(); changePositionAmount(openItem.id, openItem.name, amount)}}>Добавить</ButtonElem>
                     </ElemWrapper>
                 </ModalWrapper>
             </ModalWindow>

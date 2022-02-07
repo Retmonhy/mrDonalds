@@ -23,23 +23,23 @@ const OrderList = styled.ul` margin-top: 60px; min-height: 550px; `;
 
 export const DivFlex = styled.div`display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;`;
 export const Span = styled.span`
-    display: inline-block; min-width: 50px;
-    margin-left: 20px; 
-    margin : {({{margin}}) => margin ? margin : "unset" };`;
-
+    display: inline-block; min-width: 40px;
+    margin-left: 10px; `;
+export const Span140 = styled(Span)`
+    width: 140px; text-align: left;  `;
 export const Order = ({order, setOrder, amount}) => {
-    console.log('order = ' , order)
-    // order = [amount, {openItem}
     return (
         
         <OrderStyled>
             <OrderHeader>ВАШ ЗАКАЗ</OrderHeader>
             <OrderList className="order-list">
                 {
-                    order.map( item => <OrderItem position={item.openItem} amount={item.amount} key={item.openItem.id}/> )
+                    order.length 
+                    ? order.map( item => <OrderItem position={item.openItem} amount={item.amount} key={Math.random()*100}/> ) 
+                    : <p>Вы пока ничего не заказали</p>
                 }
             </OrderList>
-            <OrderTotal fullOrder={order} ></OrderTotal>
+            <OrderTotal order={order} ></OrderTotal>
             <ButtonElem>Оформить</ButtonElem>
         </OrderStyled>
     );

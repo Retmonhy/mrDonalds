@@ -31,7 +31,7 @@ const PositionsAmount = ({price, amount, setAmount, onChange}) => {
                 <span>Количество</span>
                 <div>
                     <ButtonCount disabled={amount <= 1} onClick={() => {setAmount( amount - 1)}}>-</ButtonCount>
-                    <InputCount type="number" value={amount <= 1 ? 1 : amount} onChange={onChange}/>
+                    <InputCount type="number" value={amount >= 2 ? amount : 1} onChange={onChange}/>
                     <ButtonCount onClick={() => {setAmount(amount + 1)}}>+</ButtonCount>
                 </div>
             </ElemWrapper> 

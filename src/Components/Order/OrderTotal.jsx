@@ -1,17 +1,20 @@
 import React from "react";
-import { DivFlex, Span } from './Order';
+import { DivFlex, Span, Span140 } from './Order';
+import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
 
-const OrderTotal = ({ fullOrder, totalAmount }) => {
+const OrderTotal = ({ order }) => {
     return(
         <>
         <DivFlex className="total-wrapper">
-            <span className="total-header">ИТОГО</span>
             <div className="total-sum">
-                <Span className="total-amount">{}</Span>
-                <Span className="total-cost">{
-                    // fullOrder.reduce((prev, item) => prev += item.position.price/*тут нужно еще добавить умножение на количство данной позиции*/ , 0)
-                }</Span>   
+            <Span140 className="total-header">ИТОГО</Span140>
+                <Span className="total-amount">{
+                    order.reduce((amountsSum, position) => amountsSum += position.amount ,0) 
+                }</Span>
             </div>
+                <Span className="total-cost">{
+                    localizeCost(order.reduce((totalSum, position) => totalSum += position.amount * position.openItem.price ,0)) 
+                }</Span>   
         </DivFlex>
         </>
     );

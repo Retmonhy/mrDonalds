@@ -10,6 +10,7 @@ import useOrder from "./Components/Hooks/useOrder";
 import Context from "./context";
 
 
+
 const GlobalStyles = createGlobalStyle`
 html, body{ box-sizing: border-box; margin: 0; padding: 0;}
 body{font-size: 20px; font-family: Roboto, sans-serif; }
@@ -34,13 +35,22 @@ function App() {
   const orderObj = useOrder();
   const { order, setOrder } = orderObj; 
 
-  const removeOrder = (id) => {
+  const removeOrder = (id, name) => {
+    
     setOrder(order.filter((order) => order.openItem.id !== id))
-  }  
+}  
 
+  const changePositionAmount = (id, name, thisPositionAmount) => {
+    let  [ currentItem ] = order.filter((order) => order.openItem.id === id && order.openItem.name === name);
+
+    if (!currentItem) return null;
+    
+    currentItem.amount += thisPositionAmount; 
+    setOrder(order);
+}
 
   return (
-    <Context.Provider value={{ removeOrder }}>
+    <Context.Provider value={{ removeOrder, changePositionAmount }}>
       <GlobalStyles/>
       <Header/>
       <Order {...orderObj}></Order>
