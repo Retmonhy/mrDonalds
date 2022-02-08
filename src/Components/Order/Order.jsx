@@ -35,7 +35,7 @@ export const Order = ({order, setOrder, amount}) => {
             <OrderList className="order-list">
                 {
                     order.length 
-                    ? order.map( item => <OrderItem position={item.openItem} amount={item.amount} key={Math.random()*100}/> ) 
+                    ? order.map( (item, index) => <OrderItem position={item.openItem} amount={item.amount} key={index}/> ) 
                     : <p>Вы пока ничего не заказали</p>
                 }
             </OrderList>

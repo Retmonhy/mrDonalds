@@ -35,7 +35,7 @@ function App() {
   const orderObj = useOrder();
   const { order, setOrder } = orderObj; 
 
-  const removeOrder = (id, name) => {
+  const removeOrder = (id) => {
     
     setOrder(order.filter((order) => order.openItem.id !== id))
 }  

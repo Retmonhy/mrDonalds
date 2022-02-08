@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 
 import PositionAmount from "./PositionsAmount";
-import { localizeCost } from "../Supp/SuppFunc/SuppFunctions";
+import { localizeCost, calcTotalCost } from "../Supp/SuppFunc/SuppFunctions";
 import useAmount from '../Hooks/useAmount';
 import Context from "../../context";
+import useToppings from "../Hooks/useToppings";
 
 const Overlay = styled.div`
 position: fixed;
@@ -22,7 +23,7 @@ const ModalWindow = styled.div`
     top: 50%; left: 50%;    
 
     width: 600px;
-    height: 600px;
+    min-height: 600px;
     border-radius: 10px;
     background: #fff;
 
@@ -41,7 +42,7 @@ const ModalBanner = styled.div`
 
 const ModalWrapper = styled.div`
     padding: 30px;
-    height: 390px;
+    min-height: 390px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,7 +56,6 @@ line-height: 53px;
 `;
 
 export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
-
     /* const {amount, setAmount, onChange} = amountObj; */
     const amountObj = useAmount();
     const {amount, setAmount, ...other} = amountObj;
@@ -70,7 +70,14 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
     }
 
     const { changePositionAmount } = useContext(Context);
+    const { toppings, checkToppings } = useToppings(openItem);
 
+        const TotalCost = (
+            <ElemWrapper>
+                <span>ИТОГ</span>
+                <span>{localizeCost(calcTotalCost(openItem.price, amount, toppings))}</span>
+            </ElemWrapper>
+        )
     return (
         <Overlay  id="overlay" onClick={closeModal}>
             <ModalWindow id="modalWindow" openItem={openItem}>
@@ -80,7 +87,7 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
                     <H2>{ openItem.name }</H2> 
                     <H2>{ localizeCost(openItem.price) }</H2>     
                     </ElemWrapper>
-                    <PositionAmount price={openItem.price} {...amountObj}/>
+                    <PositionAmount openItem={openItem} {...amountObj} toppings={toppings} checkToppings={checkToppings} children={TotalCost}/>
                     <ElemWrapper>
                         <ButtonElem onClick={() => {addToOrder(); changePositionAmount(openItem.id, openItem.name, amount)}}>Добавить</ButtonElem>
                     </ElemWrapper>

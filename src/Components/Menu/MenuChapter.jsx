@@ -26,6 +26,7 @@ const MenuChapter = ({chapterName, menuItems, setOpenItem}) => {
                         name={item.name}
                         img={item.img}
                         price={item.price}
+                        toppings={item.toppings}
                         setOpenItem={setOpenItem}
                     />)
                 }

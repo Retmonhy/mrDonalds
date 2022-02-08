@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import TotalCost from "./TotalCost";
+import Toppings from "./Toppings";
+// import useToppings from "../Hooks/useToppings";
 
 const InputCount = styled.input`
     width: 40px;
@@ -24,7 +26,7 @@ const ElemWrapper = styled.div`
     align-items: center;
 `;
 
-const PositionsAmount = ({price, amount, setAmount, onChange}) => {
+const PositionsAmount = ({openItem, amount, setAmount, onChange, toppings, checkToppings, children}) => {
     return (
         <div style={{width: "100%",}}>
             <ElemWrapper>
@@ -34,9 +36,12 @@ const PositionsAmount = ({price, amount, setAmount, onChange}) => {
                     <InputCount type="number" value={amount >= 2 ? amount : 1} onChange={onChange}/>
                     <ButtonCount onClick={() => {setAmount(amount + 1)}}>+</ButtonCount>
                 </div>
-            </ElemWrapper> 
+            </ElemWrapper>
+            <br/>
+            {openItem.toppings && <Toppings toppings={toppings} checkToppings={checkToppings}/>}
                 <br/>
-            <TotalCost price={price} amount={amount}/>
+            {children}
+            
         </div>
     );
 }
