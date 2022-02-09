@@ -35,7 +35,7 @@ function App() {
   const orderObj = useOrder();
   const { order, setOrder } = orderObj; 
 
-  const removeOrder = (id) => {
+  const removeFromOrder = (id) => {
     
     setOrder(order.filter((order) => order.openItem.id !== id))
 }  
@@ -50,7 +50,7 @@ function App() {
 }
 
   return (
-    <Context.Provider value={{ removeOrder, changePositionAmount }}>
+    <Context.Provider value={{ removeFromOrder, changePositionAmount }}>
       <GlobalStyles/>
       <Header/>
       <Order {...orderObj}></Order>

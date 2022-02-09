@@ -16,8 +16,7 @@ const TrashButton = styled.button`
 `;
 
 const OrderItem = ({ position, amount }) => {
-    
-    const { removeOrder } = useContext(Context);
+    const { removeFromOrder } = useContext(Context);
 
     return (
     <>
@@ -29,7 +28,7 @@ const OrderItem = ({ position, amount }) => {
             </div>
             <div>
                 <Span margin={'15px'} className="position-cost">{localizeCost(position.price * amount)}</Span>  
-                <TrashButton onClick={() => removeOrder(position.id, position.name)}/> 
+                <TrashButton onClick={() => removeFromOrder(position.id, position.name)}/> 
             </div>
         </DivFlex>
     </li>

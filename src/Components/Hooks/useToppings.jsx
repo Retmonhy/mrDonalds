@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const  getToppings = toppings => {if(!toppings) return []; return toppings.map( topping => ({name : topping, checked: false}))}
+export const  getToppings = toppings => toppings ? toppings.map( topping => ({name : topping, checked: false})) : [];
 
 const useToppings = (openItems) => {
     const [toppings, setToppings] = useState(getToppings(openItems.toppings));

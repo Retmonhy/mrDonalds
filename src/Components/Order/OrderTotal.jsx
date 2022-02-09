@@ -4,19 +4,21 @@ import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
 
 const OrderTotal = ({ order }) => {
     return(
-        <>
         <DivFlex className="total-wrapper">
             <div className="total-sum">
-            <Span140 className="total-header">ИТОГО</Span140>
-                <Span className="total-amount">{
+                <Span140 className="total-header">ИТОГО</Span140>
+                <Span className="total-amount">
+                    {
                     order.reduce((amountsSum, position) => amountsSum += position.amount ,0) 
-                }</Span>
+                    }
+                </Span>
             </div>
-                <Span className="total-cost">{
+                <Span className="total-cost">
+                    {
                     localizeCost(order.reduce((totalSum, position) => totalSum += position.amount * position.openItem.price ,0)) 
-                }</Span>   
+                    }
+                </Span>   
         </DivFlex>
-        </>
     );
 }
 
