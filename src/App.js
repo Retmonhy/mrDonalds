@@ -34,29 +34,20 @@ function App() {
   const openItem = useOpenItem();
   const orderObj = useOrder();
   const { order, setOrder } = orderObj; 
+  // console.log('!!!!OpenItem = \n' , openItem)
 
-  const removeFromOrder = (id) => {
-    
-    setOrder(order.filter((order) => order.openItem.id !== id))
-}  
-
-  const changePositionAmount = (id, name, thisPositionAmount) => {
-    let  [ currentItem ] = order.filter((order) => order.openItem.id === id && order.openItem.name === name);
-
-    if (!currentItem) return null;
-    
-    currentItem.amount += thisPositionAmount; 
-    setOrder(order);
-}
-
+  const removeFromOrder = (index) => {
+    setOrder(order.filter((order, i) => i !== index))
+} 
+// console.log("orderObj = \n" , orderObj)
   return (
-    <Context.Provider value={{ removeFromOrder, changePositionAmount }}>
+    <React.Fragment>
       <GlobalStyles/>
       <Header/>
-      <Order {...orderObj}></Order>
+      <Order order={order} removeFromOrder={removeFromOrder}></Order>
       <Menu ListItem={dbMenu} {...openItem} />
       {openItem.openItem && <ModalItem {...openItem} {...orderObj} />}
-    </Context.Provider>
+    </React.Fragment>
   );
 }
 

@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import { ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 import { localizeCost, calcTotalCost } from "../Supp/SuppFunc/SuppFunctions";
 import useAmount from '../Hooks/useAmount';
-import Context from "../../context";
 import useToppings from "../Hooks/useToppings";
+import useChoices from "../Hooks/useChoices";
 import Toppings from "./Toppings";
+import Choices from "./Choices";
 
 const Overlay = styled.div`
 position: fixed;
@@ -72,15 +73,23 @@ line-height: 53px;
 
 export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
     const {amount, setAmount, onChange} = useAmount();
-    const { changePositionAmount } = useContext(Context);
     const { toppings, checkToppings } = useToppings(openItem);
+    const { choice, doChoice } = useChoices(openItem);
+    console.log(openItem)
 
     const closeModal = (e) => {
         if(e.target.id === 'overlay') setOpenItem(null);
     }
 
+    const newOrder = {
+        openItem,
+        amount,
+        topping: toppings,
+        choice,    
+    }
+
     const addToOrder = () => {
-        setOrder([...order, {openItem, amount: amount}]);
+        setOrder([...order, newOrder]);
         setOpenItem(null)
     }   
 
@@ -104,7 +113,8 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
                                 <ButtonCount onClick={() => {setAmount(amount + 1)}}>+</ButtonCount>
                             </div>
                         </ElemWrapper>
-                        <br/>{openItem.toppings && <Toppings toppings={toppings} checkToppings={checkToppings}/>}
+                        <br/>{openItem.toppings.length > 0 && <Toppings toppings={toppings} checkToppings={checkToppings}/>}
+                        <br/>{openItem.choices.length > 0 && <Choices openItem={openItem} choice={choice} doChoice={doChoice}/>}
                         <br/>
                         <ElemWrapper>
                             <span>ИТОГ</span>
@@ -113,7 +123,10 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
                     </div>
 
                     <ElemWrapper>
-                        <ButtonElem onClick={() => {addToOrder(); changePositionAmount(openItem.id, openItem.name, amount)}}>Добавить</ButtonElem>
+                        <ButtonElem 
+                        onClick={() => addToOrder()}
+                        disabled={openItem.choices.length > 0 && !choice}
+                        >Добавить</ButtonElem>
                     </ElemWrapper>
                 </ModalWrapper>
             </ModalWindow>

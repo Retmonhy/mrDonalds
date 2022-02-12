@@ -30,7 +30,14 @@ margin-bottom: 30px;
 `;
 const MenuItem = (props) => {
     
-    const openModal = () => props.setOpenItem(props);
+    const openModal = () => props.setOpenItem({
+        id : props.id,
+        name : props.name,
+        img : props.img,
+        price : props.price,
+        toppings : props.toppings ? props.toppings : [],
+        choices : props.choices ? props.choices : [],
+    });
     return(
         <ListItem 
         key={props.id} 

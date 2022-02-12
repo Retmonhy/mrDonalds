@@ -21,13 +21,16 @@ const OrderHeader = styled.h2` font-size: 39px; line-height: 69px; text-align: c
 
 const OrderList = styled.ul` margin-top: 60px; min-height: 550px; `;
 
-export const DivFlex = styled.div`display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;`;
+export const DivFlex = styled.div`display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;`;
+
 export const Span = styled.span`
     display: inline-block; min-width: 40px;
     margin-left: 10px; `;
+
 export const Span140 = styled(Span)`
     width: 140px; text-align: left;  `;
-export const Order = ({order, setOrder, amount}) => {
+
+export const Order = ({order, removeFromOrder}) => {
     return (
         
         <OrderStyled>
@@ -35,7 +38,14 @@ export const Order = ({order, setOrder, amount}) => {
             <OrderList className="order-list">
                 {
                     order.length 
-                    ? order.map( (item, index) => <OrderItem position={item.openItem} amount={item.amount} key={index}/> ) 
+                    ? order.map( (item, index) => <OrderItem 
+                        openItem={item.openItem} 
+                        amount={item.amount} 
+                        index={index} 
+                        choice={item.choice}
+                        toppings={item.topping}
+                        removeFromOrder={removeFromOrder}
+                        key={index}/> ) 
                     : <p>Вы пока ничего не заказали</p>
                 }
             </OrderList>

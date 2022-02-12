@@ -17,3 +17,16 @@ border: none;
 font-size: 21px;
 color: #fff;
 `;
+
+export const SmthWrapper = styled.div`
+    column-count: 2;
+    column-width: 200px;
+    text-align: left;
+`;
+export const SmthWrap =  styled.div`
+margin-bottom: 15px;
+
+`;
+export const SmthLabel = styled.label`
+cursor: pointer;
+`;

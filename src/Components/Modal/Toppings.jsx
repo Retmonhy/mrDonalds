@@ -1,39 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-
-const ToppingWrapper = styled.div`
-    column-count: 2;
-    column-width: 200px;
-    text-align: left;
-`;
-const ToppingWrap =  styled.div`
-margin-bottom: 15px;
-
-`;
-const ToppingLabel = styled.label`
-cursor: pointer;
-`;
+import { SmthWrapper, SmthWrap, SmthLabel } from '../Supp/SuppComp/SuppComp'
 
 const ToppingCheckbox = styled.input`
-cursor: pointer;
+    cursor: pointer;
 `;
 
 const Toppings = ({toppings, checkToppings}) => {
     return (
         <>
         <h3>Добавки:</h3><br/>
-        <ToppingWrapper>
+        <SmthWrapper>
             {
                 toppings.map((item, index) => (
-                    <ToppingWrap key={index} >
+                    <SmthWrap key={index} >
                         <ToppingCheckbox type='checkbox' onChange={() => checkToppings(index)} checked={item.checked}/>
-                            <ToppingLabel onClick={() => checkToppings(index)}>
+                            <SmthLabel onClick={() => checkToppings(index)}>
                                 {item.name}
-                            </ToppingLabel>
-                    </ToppingWrap>
+                            </SmthLabel>
+                    </SmthWrap>
                 ))
             }
-        </ToppingWrapper>
+        </SmthWrapper>
         </>
     );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { DivFlex, Span, Span140 } from './Order';
-import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
+import { localizeCost, calcTotalCost } from "../Supp/SuppFunc/SuppFunctions"
 
 const OrderTotal = ({ order }) => {
     return(
@@ -15,7 +15,7 @@ const OrderTotal = ({ order }) => {
             </div>
                 <Span className="total-cost">
                     {
-                    localizeCost(order.reduce((totalSum, position) => totalSum += position.amount * position.openItem.price ,0)) 
+                    localizeCost(order.reduce((totalSum, position) => totalSum += calcTotalCost(position.openItem.price, position.amount, position.topping) ,0)) 
                     }
                 </Span>   
         </DivFlex>
