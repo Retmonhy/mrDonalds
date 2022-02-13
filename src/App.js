@@ -44,8 +44,8 @@ function App() {
     <React.Fragment>
       <GlobalStyles/>
       <Header/>
-      <Order order={order} removeFromOrder={removeFromOrder}></Order>
-      <Menu ListItem={dbMenu} {...openItem} />
+      <Order order={order} removeFromOrder={removeFromOrder} { ...openItem}></Order>
+      <Menu ListItem={dbMenu} { ...openItem} />
       {openItem.openItem && <ModalItem {...openItem} {...orderObj} />}
     </React.Fragment>
   );
