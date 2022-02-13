@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { SmthWrapper, SmthWrap, SmthLabel } from '../Supp/SuppComp/SuppComp';
+import PropTypes from 'prop-types'
 
 const ChoicesRadioInput = styled.input`
     cursor: pointer;
 `;
 
 const Choices = ({ openItem, choice, doChoice }) => {
-    // console.log('choices = \n', choices)
     return(
         <>
             <h3>Сделайте выбор:</h3><br/>
             <SmthWrapper>
                 {
                     openItem.choices.map((item, index) => (
-                        <SmthWrap>
+                        <SmthWrap key={index}>
                             <SmthLabel  key={index}>
                                 <ChoicesRadioInput 
                                 type='radio' 
@@ -32,5 +32,12 @@ const Choices = ({ openItem, choice, doChoice }) => {
         </>
     );
 } 
+
+
+Choices.propTypes = {
+    openItem: PropTypes.object.isRequired,
+    choice: PropTypes.string.isRequired,
+    doChoice: PropTypes.func.isRequired,
+}
 
 export default Choices; 

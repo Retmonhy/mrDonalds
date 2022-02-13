@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MenuItem from "./MenuItem";
+import PropTypes from 'prop-types';
 
 
 const Ul = styled.ul`
@@ -22,18 +23,19 @@ const MenuChapter = ({chapterName, menuItems, setOpenItem}) => {
                 {
                     menuItems.map(item =>  <MenuItem 
                         key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        img={item.img}
-                        price={item.price}
-                        toppings={item.toppings}
-                        choices={item.choices}
+                        menuPosition={item}
                         setOpenItem={setOpenItem}
                     />)
                 }
             </Ul>
         </Section>
     );
+}
+
+MenuChapter.propTypes = {
+    chapterName: PropTypes.string.isRequired,
+    menuItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    setOpenItem: PropTypes.func.isRequired,
 }
 
 export default MenuChapter

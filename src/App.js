@@ -7,7 +7,6 @@ import { ModalItem }  from "./Components/Modal/ModalItem";
 import { Order }  from "./Components/Order/Order";
 import useOpenItem from "./Components/Hooks/useOpenItem";
 import useOrder from "./Components/Hooks/useOrder";
-import Context from "./context";
 
 
 
@@ -31,22 +30,21 @@ input::-webkit-inner-spin-button {
 
 function App() {
 
-  const openItem = useOpenItem();
-  const orderObj = useOrder();
-  const { order, setOrder } = orderObj; 
-  // console.log('!!!!OpenItem = \n' , openItem)
+  const openItemObj = useOpenItem();
+  const ordersObj = useOrder();
+  const { orders, setOrders } = ordersObj; 
 
-  const removeFromOrder = (index) => {
-    setOrder(order.filter((order, i) => i !== index))
+
+  const removeFromOrders = (index) => {
+    setOrders(orders.filter((order, i) => i !== index))
 } 
-// console.log("orderObj = \n" , orderObj)
   return (
     <React.Fragment>
       <GlobalStyles/>
       <Header/>
-      <Order order={order} removeFromOrder={removeFromOrder}></Order>
-      <Menu ListItem={dbMenu} {...openItem} />
-      {openItem.openItem && <ModalItem {...openItem} {...orderObj} />}
+      <Order orders={orders} removeFromOrders={removeFromOrders} {...openItemObj}></Order>
+      <Menu listItem={dbMenu} {...openItemObj} />
+      {openItemObj.openItem && <ModalItem {...openItemObj} {...ordersObj} />}
     </React.Fragment>
   );
 }

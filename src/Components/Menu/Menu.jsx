@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuChapter from './MenuChapter';
-import BannerPicture from "../../images/banner.png"
+import BannerPicture from "../../images/banner.png";
+import PropTypes from 'prop-types';
 
 
 const MenuStyled = styled.section`
@@ -22,14 +23,20 @@ const BannerMenu = styled.div`
 `;
 
 
-const Menu = ({ ListItem, openItem, setOpenItem }) => {
+const Menu = ({ listItem, setOpenItem }) => {
     
     return (
         <MenuStyled>
           <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
-            <MenuChapter chapterName='Бургеры' menuItems={ListItem.burger} setOpenItem={setOpenItem}/>
-            <MenuChapter chapterName='Напитки и прочее' menuItems={ListItem.other} setOpenItem={setOpenItem}/>
+            <MenuChapter chapterName='Бургеры' menuItems={listItem.burger} setOpenItem={setOpenItem}/>
+            <MenuChapter chapterName='Напитки и прочее' menuItems={listItem.other} setOpenItem={setOpenItem}/>
         </MenuStyled>
     );
 }
-export default  Menu
+
+Menu.propTypes = {
+    listItem: PropTypes.object,
+    setOpenItem: PropTypes.func.isRequired,
+
+}
+export default  Menu;

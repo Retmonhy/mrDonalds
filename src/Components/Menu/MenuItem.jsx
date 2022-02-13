@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
+import PropTypes from 'prop-types';
 
 const ListItem = styled.li`
 position: relative;
@@ -28,30 +29,34 @@ margin-bottom: 30px;
     }
 }
 `;
-const MenuItem = (props) => {
+const MenuItem = ({ menuPosition, setOpenItem }) => {
     
-    const openModal = () => props.setOpenItem({
-        id : props.id,
-        name : props.name,
-        img : props.img,
-        price : props.price,
-        toppings : props.toppings ? props.toppings : [],
-        choices : props.choices ? props.choices : [],
+    const openModal = () => setOpenItem({
+        id : menuPosition.id,
+        name : menuPosition.name,
+        img : menuPosition.img,
+        price : menuPosition.price,
+        toppings : menuPosition.toppings ? menuPosition.toppings : [],
+        choices : menuPosition.choices ? menuPosition.choices : [],
     });
     return(
         <ListItem 
-        key={props.id} 
-        imgUrl={props.img} 
+        key={menuPosition.id} 
+        imgUrl={menuPosition.img} 
         onClick={openModal} >
             <div className="wrapper">
-                <img src={props.img} alt="Картинка Меню"/>
+                <img src={menuPosition.img} alt="Картинка Меню"/>
                 <div className="descWrapper">
-                    <p className='item-name'>{props.name}</p>
-                    <p className="item-cost">{localizeCost(props.price)}</p>
+                    <p className='item-name'>{menuPosition.name}</p>
+                    <p className="item-cost">{localizeCost(menuPosition.price)}</p>
                 </div>
             </div>
         </ListItem>
     );
 }
 
+MenuItem.propTypes = {
+    menuPosition: PropTypes.object.isRequired,
+    setOpenItem: PropTypes.func.isRequired,
+}
 export default MenuItem

@@ -1,4 +1,4 @@
-import  { getToppings } from "../../Hooks/useToppings";
+
 
 export const calcTotalCost = (price, amount, toppings ) => {
     const toppingsAmount = toppings && toppings.filter((item) => item.checked === true).length;
@@ -6,6 +6,7 @@ export const calcTotalCost = (price, amount, toppings ) => {
 }
 
 export const localizeCost = (num) => {
+    if(!num) return 0
     return num.toLocaleString("ru-RU",
             {style: "currency", currency: "RUB"});
 }
