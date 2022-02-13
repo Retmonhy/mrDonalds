@@ -24,23 +24,25 @@ const SmallDiv = styled.div`
 `;
 
 
-const OrderItem = ({ position: { openItem, amount, orderToppings, orderChoice }, index, removeFromOrders }) => {
+// const OrderItem = ({ position: { openItem, amount, orderToppings, orderChoice }, index, removeFromOrders, setOpenItem }) => {
+    const OrderItem = ({ position, index, removeFromOrders, setOpenItem }) => {
+        console.log('position = ', position)
     return (
     <>
-    {<li className="order-item" style={{marginBottom: "15px",}} >
+    {<li className="order-item" style={{marginBottom: "15px",}} onClick={(evt) => setOpenItem({...position, index})}>
         <DivFlex styles={{flexWrap: "wrap",}}>
             <div className="position-sum" style={{display: "flex", alignItem: "center"}}>
-                <span className="position-name" style={{width: "140px", display: "inline-block", textAlign: "left"}}>{openItem.name} {orderChoice}</span>
+                <span className="position-name" style={{width: "140px", display: "inline-block", textAlign: "left"}}>{position.name} {position.orderChoice}</span>
                 
-                <Span className="position-count" style={{margin: "auto"}}>{amount}</Span>
+                <Span className="position-count" style={{margin: "auto"}}>{position.amount}</Span>
             </div>
             <div>
-                <Span margin={'15px'} className="position-cost">{localizeCost(calcTotalCost(openItem.price, amount, orderToppings))}</Span>  
-                <TrashButton onClick={() => removeFromOrders(index)}/> 
+                <Span margin={'15px'} className="position-cost">{localizeCost(calcTotalCost(position.price, position.amount, position.orderToppings))}</Span>  
+                <TrashButton onClick={(event) => {removeFromOrders(index); event.stopPropagation() }}/> 
             </div>
         </DivFlex>
             <SmallDiv>{
-            orderToppings
+            position.orderToppings
             .map( topping => {if(topping.checked === true) {return topping.name}} )
             .filter(name => name)
             .join(", ") 
@@ -60,6 +62,6 @@ OrderItem.propTypes = {
     orderToppings: PropTypes.array.isRequired,
     orderChoice: PropTypes.string.isRequired,
     setOpenItem: PropTypes.func.isRequired,
-    removeFromOrder: PropTypes.func.isRequired,
+    removeFromOrders: PropTypes.func.isRequired,
 }
 export default OrderItem;

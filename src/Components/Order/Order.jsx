@@ -31,8 +31,8 @@ export const Span = styled.span`
 export const Span140 = styled(Span)`
     width: 140px; text-align: left;  `;
 
-export const Order = ({orders, removeFromOrders}) => {
-    console.log(orders)
+export const Order = ({orders, removeFromOrders, setOpenItem}) => {
+    // console.log(orders)
     return (
         
         <OrderStyled>
@@ -44,6 +44,7 @@ export const Order = ({orders, removeFromOrders}) => {
                        position={item}
                        index={index} 
                        removeFromOrders={removeFromOrders}
+                       setOpenItem={setOpenItem}
                        key={index}/> ) 
                    : <p>Вы пока ничего не заказали</p>
                 }

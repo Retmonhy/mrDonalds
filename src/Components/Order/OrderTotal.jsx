@@ -16,7 +16,7 @@ const OrderTotal = ({ orders }) => {
             </div>
                 <Span className="total-cost">
                     {
-                    localizeCost(orders.reduce((totalSum, item) => totalSum += calcTotalCost(item.openItem.price, item.amount, item.orderToppings) ,0)) 
+                    localizeCost(orders.reduce((totalSum, item) => totalSum += calcTotalCost(item.price, item.amount, item.orderToppings) ,0)) 
                     }
                 </Span>   
         </DivFlex>

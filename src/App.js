@@ -19,6 +19,7 @@ a { text-decoration: none; color: inherit;}
 p, ul { padding: 0; margin: 0;}
 ul { list-style: none;}
 button{ cursor: pointer;}
+button:disabled{ cursor: no-drop; opacity: 0.6;}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
