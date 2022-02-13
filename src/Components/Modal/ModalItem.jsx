@@ -7,6 +7,8 @@ import useToppings from "../Hooks/useToppings";
 import useChoices from "../Hooks/useChoices";
 import Toppings from "./Toppings";
 import Choices from "./Choices";
+import PropTypes from 'prop-types'
+import { func } from 'prop-types';
 
 const Overlay = styled.div`
 position: fixed;
@@ -57,7 +59,7 @@ const InputCount = styled.input`
 const ButtonCount = styled.button`
     height: 25px;
     width: 25px;
-    font-size 16px;
+    font-size: 16px;
     font-weight: 700;
     background: transparent;
     margin: 0 5px;
@@ -71,25 +73,37 @@ font-size: 30px;
 line-height: 53px;
 `;
 
-export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
-    const {amount, setAmount, onChange} = useAmount();
-    const { toppings, checkToppings } = useToppings(openItem);
+export const ModalItem = ( {openItem, setOpenItem, orders, setOrders}) => {
+    let { amount, setAmount, onChange} = useAmount(openItem.amount);
+    const { toppingsObj, checkToppings } = useToppings(openItem);
     const { choice, doChoice } = useChoices(openItem);
-    console.log(openItem)
+    const isEdit = openItem.index > -1;
+    // console.log('toppingsObj = \n', toppingsObj)
 
+    
+    
     const closeModal = (e) => {
         if(e.target.id === 'overlay') setOpenItem(null);
     }
-
-    const newOrder = {
-        openItem,
+    console.log("Заказ до изменения:",orders)
+    const order = {
+        ...openItem,
         amount,
-        topping: toppings,
-        choice,    
+        orderToppings: toppingsObj,
+        orderChoice: choice,    
     }
 
-    const addToOrder = () => {
-        setOrder([...order, newOrder]);
+    const editOrder = () => {
+        const newOrders = [...orders];
+        newOrders[openItem.index] = order;
+        console.log("Заказ после изменения:",newOrders)
+        setOrders(newOrders);
+        setAmount(openItem.amount);
+        console.log("Уже новый редактированный заказ:",orders)
+    }
+
+    const addToOrders = () => {
+        setOrders([...orders, order]);
         setOpenItem(null)
     }   
 
@@ -100,7 +114,7 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
                 <ModalWrapper>
                     <ElemWrapper>
                         <H2>{ openItem.name }</H2> 
-                        <H2>{ localizeCost(openItem.price) }</H2>     
+                        <H2>{ localizeCost( openItem.price) }</H2>     
                     </ElemWrapper>
 
 
@@ -109,27 +123,42 @@ export const ModalItem = ( {openItem, setOpenItem, order, setOrder}) => {
                             <span>Количество</span>
                             <div>
                                 <ButtonCount disabled={amount <= 1} onClick={() => {setAmount( amount - 1)}}>-</ButtonCount>
-                                <InputCount type="number" value={amount >= 2 ? amount : 1} onChange={onChange}/>
-                                <ButtonCount onClick={() => {setAmount(amount + 1)}}>+</ButtonCount>
+                                {/* <InputCount type="number" value={openItem.amount ? openItem.amount : amount >= 2 ? amount : 1} onChange={onChange}/> */}
+                                <InputCount type="number" value={amount >= 2 ? amount : 1} onChange={onChange}/> 
+                                <ButtonCount onClick={() => {setAmount( amount + 1)}}>+</ButtonCount>
                             </div>
                         </ElemWrapper>
-                        <br/>{openItem.toppings.length > 0 && <Toppings toppings={toppings} checkToppings={checkToppings}/>}
-                        <br/>{openItem.choices.length > 0 && <Choices openItem={openItem} choice={choice} doChoice={doChoice}/>}
+                        <br/>
+                        {/* {(isEdit && openItem.orderToppings.length > 0) && <Toppings toppingsObj={openItem.orderToppings} checkToppings={checkToppings}/>} */}
+                        {(openItem.toppings && openItem.toppings.length > 0) && <Toppings toppingsObj={toppingsObj} checkToppings={checkToppings}/>}
+                        <br/>
+                        {(openItem.choices && openItem.choices.length > 0) && <Choices openItem={openItem} choice={choice} doChoice={doChoice}/>}
                         <br/>
                         <ElemWrapper>
                             <span>ИТОГ</span>
-                            <span>{localizeCost(calcTotalCost(openItem.price, amount, toppings))}</span>
+                            <span>{localizeCost(calcTotalCost(
+                                 openItem.price, 
+                                 amount, 
+                                 toppingsObj
+                                ))}</span>
                         </ElemWrapper>
                     </div>
 
                     <ElemWrapper>
                         <ButtonElem 
-                        onClick={() => addToOrder()}
+                        onClick={() => {isEdit ? editOrder() : addToOrders(); setOpenItem(null)}}
                         disabled={openItem.choices.length > 0 && !choice}
-                        >Добавить</ButtonElem>
+                        >{isEdit ? "Редактировать" : 'Добавить'}</ButtonElem>
                     </ElemWrapper>
                 </ModalWrapper>
             </ModalWindow>
         </Overlay>
     );
 } 
+
+ModalItem.propTypes = {
+    openItem: PropTypes.object.isRequired,
+    setOpenItem: PropTypes.func,
+    orders: PropTypes.array.isRequired,
+    setOpenItem: PropTypes.func,
+}

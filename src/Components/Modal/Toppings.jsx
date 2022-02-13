@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { SmthWrapper, SmthWrap, SmthLabel } from '../Supp/SuppComp/SuppComp'
+import PropTypes from 'prop-types';
 
 const ToppingCheckbox = styled.input`
     cursor: pointer;
 `;
 
-const Toppings = ({toppings, checkToppings}) => {
+const Toppings = ({ toppingsObj, checkToppings }) => {
     return (
         <>
         <h3>Добавки:</h3><br/>
         <SmthWrapper>
             {
-                toppings.map((item, index) => (
+                toppingsObj.map((item, index) => (
                     <SmthWrap key={index} >
                         <ToppingCheckbox type='checkbox' onChange={() => checkToppings(index)} checked={item.checked}/>
                             <SmthLabel onClick={() => checkToppings(index)}>
@@ -25,5 +26,8 @@ const Toppings = ({toppings, checkToppings}) => {
         </>
     );
 }
-
+Toppings.propTypes = {
+    toppingsObj: PropTypes.array,
+    checkToppings: PropTypes.func.isRequired
+}
 export default Toppings;

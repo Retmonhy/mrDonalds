@@ -1,4 +1,6 @@
 import React from 'react';
+import  firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 import {createGlobalStyle} from "styled-components";
 import Header from "./Components/Header/Header";
 import Menu from './Components/Menu/Menu';
@@ -7,9 +9,16 @@ import { ModalItem }  from "./Components/Modal/ModalItem";
 import { Order }  from "./Components/Order/Order";
 import useOpenItem from "./Components/Hooks/useOpenItem";
 import useOrder from "./Components/Hooks/useOrder";
-import Context from "./context";
+import { useAuth } from "./Components/Hooks/useAuth";
 
-
+const firebaseConfig = {
+  apiKey: "AIzaSyBaiWc8gas0fdroCnbZG0u6WvtvF_xgwtU",
+  authDomain: "mrdonalds-560f0.firebaseapp.com",
+  projectId: "mrdonalds-560f0",
+  storageBucket: "mrdonalds-560f0.appspot.com",
+  messagingSenderId: "1015313828353",
+  appId: "1:1015313828353:web:dd7af22c0fdf753f5d8e00"
+};
 
 const GlobalStyles = createGlobalStyle`
 html, body{ box-sizing: border-box; margin: 0; padding: 0;}
@@ -20,6 +29,7 @@ a { text-decoration: none; color: inherit;}
 p, ul { padding: 0; margin: 0;}
 ul { list-style: none;}
 button{ cursor: pointer;}
+button:disabled{ cursor: no-drop; opacity: 0.6;}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -28,25 +38,28 @@ input::-webkit-inner-spin-button {
 }
 `; 
 
+firebase.initializeApp(firebaseConfig);
 
 function App() {
 
-  const openItem = useOpenItem();
-  const orderObj = useOrder();
-  const { order, setOrder } = orderObj; 
-  // console.log('!!!!OpenItem = \n' , openItem)
+  const auth = useAuth(firebase.auth)
 
-  const removeFromOrder = (index) => {
-    setOrder(order.filter((order, i) => i !== index))
+
+  const openItemObj = useOpenItem();
+  const ordersObj = useOrder();
+  const { orders, setOrders } = ordersObj; 
+
+
+  const removeFromOrders = (index) => {
+    setOrders(orders.filter((order, i) => i !== index))
 } 
-// console.log("orderObj = \n" , orderObj)
   return (
     <React.Fragment>
       <GlobalStyles/>
-      <Header/>
-      <Order order={order} removeFromOrder={removeFromOrder} { ...openItem}></Order>
-      <Menu ListItem={dbMenu} { ...openItem} />
-      {openItem.openItem && <ModalItem {...openItem} {...orderObj} />}
+      <Header {...auth}/> {/* передаем auth, а точнее функцию login в кнопку войти*/}
+      <Order orders={orders} removeFromOrders={removeFromOrders} {...openItemObj} {...auth}></Order>
+      <Menu listItem={dbMenu} {...openItemObj} />
+      {openItemObj.openItem && <ModalItem {...openItemObj} {...ordersObj} />}
     </React.Fragment>
   );
 }

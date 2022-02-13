@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ButtonElem } from "../Supp/SuppComp/SuppComp";
 import OrderItem from "./OrderItem";
 import OrderTotal from "./OrderTotal";
+import PropTypes from 'prop-types';
 
 
 
@@ -30,27 +31,34 @@ export const Span = styled.span`
 export const Span140 = styled(Span)`
     width: 140px; text-align: left;  `;
 
-export const Order = ({order, removeFromOrder}) => {
+export const Order = ({orders, removeFromOrders, setOpenItem, authentification, logIn}) => {
+    // console.log(orders)
     return (
         
         <OrderStyled>
             <OrderHeader>ВАШ ЗАКАЗ</OrderHeader>
             <OrderList className="order-list">
                 {
-                    order.length 
-                    ? order.map( (item, index) => <OrderItem 
-                        openItem={item.openItem} 
-                        amount={item.amount} 
-                        index={index} 
-                        choice={item.choice}
-                        toppings={item.topping}
-                        removeFromOrder={removeFromOrder}
-                        key={index}/> ) 
-                    : <p>Вы пока ничего не заказали</p>
+                   orders.length 
+                   ? orders.map( (item, index) => <OrderItem 
+                       position={item}
+                       index={index} 
+                       removeFromOrders={removeFromOrders}
+                       setOpenItem={setOpenItem}
+                       key={index}/> ) 
+                   : <p>Вы пока ничего не заказали</p>
                 }
             </OrderList>
-            <OrderTotal order={order} ></OrderTotal>
-            <ButtonElem>Оформить</ButtonElem>
+            <OrderTotal orders={orders} ></OrderTotal>
+            <ButtonElem onClick={() => {authentification ? console.table(orders) : logIn()}}>Оформить</ButtonElem>
         </OrderStyled>
     );
+}
+
+Order.propTypes = {
+    orders: PropTypes.array.isRequired,
+    removeFromOrders: PropTypes.func.isRequired,
+    setOpenItem: PropTypes.func.isRequired,
+    authentification: PropTypes.object,
+    logIn: PropTypes.func,
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const useAmount = () => {
-    const [amount, setAmount] = useState(1);
+const useAmount = (initialAmount = 1) => {
+    const [amount, setAmount] = useState(initialAmount);
 
     const onChange = (e) => {setAmount(+e.target.value); };
 

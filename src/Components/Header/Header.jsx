@@ -1,6 +1,8 @@
+import propTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import headLogo from "../../images/logo.svg";
+import PropTypes from 'prop-types';
 import loginImage from "../../images/sign.svg";
 
 const HeaderTag = styled.header`
@@ -37,6 +39,8 @@ const ButtonLogin = styled.button`
     line-heigth: 19px;
   }
 `;
+const ButtonLogout = styled(ButtonLogin)`
+`;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -44,17 +48,32 @@ const Wrapper = styled.div`
   img{margin-right: 15px;}
 `; 
 
-export default function Header() {
+export default function Header({ authentification, logIn, logOut }) {
     return (
         <HeaderTag>
             <Wrapper as="a" href="/" className="wrapper">
                 <img src={headLogo} alt="MrDonald's"></img>
                 <H1>MrDonald's</H1>
             </Wrapper>
-            <ButtonLogin>
-            <img src={loginImage} alt="login"></img>
-            <span>Войти</span>
-            </ButtonLogin>
+            {authentification 
+            ?
+              <ButtonLogout onClick={logOut}>
+              <img src={loginImage} alt={authentification.displayName}></img>
+              <span>{authentification.displayName}</span>
+              <span>Выйти</span>
+              </ButtonLogout> 
+            :
+              <ButtonLogin onClick={logIn}>
+              <img src={loginImage} alt="login"></img>
+              <span>Войти</span>
+              </ButtonLogin>
+            }
         </HeaderTag>
     );
+}
+
+Header.propTypes = {
+  authentification: PropTypes.object,
+  logIn: PropTypes.func,
+  logOut: PropTypes.func,
 }
