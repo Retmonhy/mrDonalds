@@ -78,14 +78,13 @@ export const ModalItem = ( {openItem, setOpenItem, orders, setOrders}) => {
     const { toppingsObj, checkToppings } = useToppings(openItem);
     const { choice, doChoice } = useChoices(openItem);
     const isEdit = openItem.index > -1;
-    // console.log('toppingsObj = \n', toppingsObj)
 
     
     
     const closeModal = (e) => {
         if(e.target.id === 'overlay') setOpenItem(null);
     }
-    console.log("Заказ до изменения:",orders)
+    
     const order = {
         ...openItem,
         amount,
@@ -96,10 +95,8 @@ export const ModalItem = ( {openItem, setOpenItem, orders, setOrders}) => {
     const editOrder = () => {
         const newOrders = [...orders];
         newOrders[openItem.index] = order;
-        console.log("Заказ после изменения:",newOrders)
         setOrders(newOrders);
         setAmount(openItem.amount);
-        console.log("Уже новый редактированный заказ:",orders)
     }
 
     const addToOrders = () => {

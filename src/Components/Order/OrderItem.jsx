@@ -26,7 +26,6 @@ const SmallDiv = styled.div`
 
 // const OrderItem = ({ position: { openItem, amount, orderToppings, orderChoice }, index, removeFromOrders, setOpenItem }) => {
     const OrderItem = ({ position, index, removeFromOrders, setOpenItem }) => {
-        console.log('position = ', position)
     return (
     <>
     {<li className="order-item" style={{marginBottom: "15px",}} onClick={(evt) => setOpenItem({...position, index})}>

@@ -19,7 +19,6 @@ export const useAuth = (authFirebase) => {
                             //снова обращаемся к объекту auth и вызываем метод onAuthStageChanged
                             //если объект user передан, то мы запустим функцию для смены значения   authentification
         auth.onAuthStateChanged(user => {
-            console.log('user = \n', user)
             if(user) {
                 setAuthentification(user)
             } else {setAuthentification(null)}
