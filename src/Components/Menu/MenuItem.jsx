@@ -30,15 +30,16 @@ margin-bottom: 30px;
 }
 `;
 const MenuItem = ({ menuPosition, setOpenItem }) => {
-    
-    const openModal = () => setOpenItem({
-        id : menuPosition.id,
-        name : menuPosition.name,
-        img : menuPosition.img,
-        price : menuPosition.price,
-        toppings : menuPosition.toppings ? menuPosition.toppings : [],
-        choices : menuPosition.choices ? menuPosition.choices : [],
-    });
+    const openModal = () => {
+        setOpenItem({
+            id : menuPosition.id,
+            name : menuPosition.name,
+            img : menuPosition.img,
+            price : menuPosition.price,
+            toppings : menuPosition.toppings ? menuPosition.toppings : [],
+            choices : menuPosition.choices ? menuPosition.choices : [],
+        })
+};
     return(
         <ListItem 
         key={menuPosition.id} 

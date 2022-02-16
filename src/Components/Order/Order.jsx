@@ -5,7 +5,6 @@ import OrderItem from "./OrderItem";
 import OrderTotal from "./OrderTotal";
 import PropTypes from 'prop-types';
 import { projection } from '../Supp/SuppFunc/SuppFunctions'
-import { isContentEditable } from "@testing-library/user-event/dist/utils";
 
 
 
@@ -37,26 +36,25 @@ export const Span140 = styled(Span)`
         //и зачем-то передаем все эти данные в виде массивов, даже одиночные типа name или price
   const dataRules = {
     name : ["name"],
-    price : ['price'],
+    price : ["price"],
     amount : ['amount'],
     toppings : ['orderToppings', array => array ? (array.filter(item => item.checked)).map(obj => obj.name) : "No toppings"],
     choices : ['orderChoice', item => item ? item : "No choices"]
   }
 
-export const Order = ({orders, removeFromOrders, setOpenItem, authentification, logIn, firebaseDatabase}) => {
+export const Order = ({orders, setOrders, removeFromOrders, setOpenItem, authentification, logIn, firebaseDatabase}) => {
     //database - объект для управления базой данных
     const dataBase = firebaseDatabase();
-    console.log(dataBase)
 
     const sendOrder = () => {
         const newOrder = orders.map(projection(dataRules))
-        console.log(newOrder)
         dataBase.ref('order').push().set({
-            orderClient: authentification.displayName,
+            nameClient: authentification.displayName,
             email: authentification.email,
             order: newOrder,
-        });
-        console.log(authentification.displayName, authentification.email, newOrder)
+        })
+        .then(() => setOrders([]))
+        .catch(error => console.log(error))
 
     }
     
@@ -84,6 +82,7 @@ export const Order = ({orders, removeFromOrders, setOpenItem, authentification, 
 
 Order.propTypes = {
     orders: PropTypes.array.isRequired,
+    setOrders: PropTypes.func,
     removeFromOrders: PropTypes.func.isRequired,
     setOpenItem: PropTypes.func.isRequired,
     authentification: PropTypes.object,
