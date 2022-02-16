@@ -2,7 +2,6 @@ import React from 'react';
 import "./App.css";
 import Header from "./Components/Header/Header";
 import Menu from './Components/Menu/Menu';
-import dbMenu from "./DBMenu";
 import { ModalItem }  from "./Components/Modal/ModalItem";
 import { Order }  from "./Components/Order/Order";
 import useOrder from "./Components/Hooks/useOrder";
@@ -56,7 +55,7 @@ function App() {
         {...auth}
         firebaseDatabase = {firebase.database}
       ></Order>
-      <Menu listItem={dbMenu} setOpenItem={openItemObj.setOpenItem} />
+      <Menu setOpenItem={openItemObj.setOpenItem} />
       {openItemObj.openItem && <ModalItem {...openItemObj} {...ordersObj} />}
     </React.Fragment>
   );

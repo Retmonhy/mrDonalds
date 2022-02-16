@@ -23,7 +23,7 @@ export const useAuth = (authFirebase) => {
                 setAuthentification(user)
             } else {setAuthentification(null)}
         })
-    }, [authentification])
+    }, [auth, authentification])
 
     return { authentification, logIn, logOut }
                             // authentification - содержит все данные аутентифицировавшегося пользователя,

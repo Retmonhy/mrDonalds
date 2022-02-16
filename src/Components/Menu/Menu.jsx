@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import MenuChapter from './MenuChapter';
 import BannerPicture from "../../images/banner.png";
 import PropTypes from 'prop-types';
+import useFetch from  "../Hooks/useFetch";
+import Loading from "../../Loading"
 
 
 const MenuStyled = styled.section`
@@ -23,14 +25,25 @@ const BannerMenu = styled.div`
 `;
 
 
-const Menu = ({ listItem, setOpenItem }) => {
-    
+const Menu = ({ setOpenItem }) => {
+    const result = useFetch();
+    const DBmenu = result.response;
+    // console.log("useFetch(): ", useFetch())
     return (
-        <MenuStyled>
-          <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
-            <MenuChapter chapterName='Бургеры' menuItems={listItem.burger} setOpenItem={setOpenItem}/>
-            <MenuChapter chapterName='Напитки и прочее' menuItems={listItem.other} setOpenItem={setOpenItem}/>
-        </MenuStyled>
+                <MenuStyled>
+                <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
+                    {//если данные пришли result.response, то отображаем меню, иначе загрузку
+                        result.response ? 
+                        <>
+                            <MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger} setOpenItem={setOpenItem}/>
+                            <MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other} setOpenItem={setOpenItem}/>
+                        </>
+                        : result.error ? <div>Sorry, we already start fix the problem...</div>
+                        : <Loading/>
+                    }
+                </MenuStyled>
+                
+        
     );
 }
 
