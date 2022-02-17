@@ -42,13 +42,12 @@ export const Span140 = styled(Span)`
     choices : ['orderChoice', item => item ? item : "No choices"]
   }
 
-export const Order = ({orders, setOrders, removeFromOrders, setOpenItem, authentification, logIn, firebaseDatabase}) => {
+export const Order = ({orders, setOrders, removeFromOrders, setOpenItem, authentification, logIn, database}) => {
     //database - объект для управления базой данных
-    const dataBase = firebaseDatabase();
 
     const sendOrder = () => {
         const newOrder = orders.map(projection(dataRules))
-        dataBase.ref('order').push().set({
+        database.ref('order').push().set({
             nameClient: authentification.displayName,
             email: authentification.email,
             order: newOrder,
@@ -87,5 +86,5 @@ Order.propTypes = {
     setOpenItem: PropTypes.func.isRequired,
     authentification: PropTypes.object,
     logIn: PropTypes.func,
-    firebaseDatabase : PropTypes.func,
+    database : PropTypes.object,
 }

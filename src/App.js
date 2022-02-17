@@ -8,6 +8,7 @@ import useOrder from "./Components/Hooks/useOrder";
 import useOpenItem from "./Components/Hooks/useOpenItem";
 import useTitle from "./Components/Hooks/useTitle";
 import { useAuth } from "./Components/Hooks/useAuth";
+import useDB from "./Components/Hooks/useDB";
 
 
 import  firebase from "firebase/compat/app";
@@ -26,13 +27,15 @@ const firebaseConfig = {
 
 
 
-
 firebase.initializeApp(firebaseConfig);
 
 
 function App() {
 
-  const auth = useAuth(firebase.auth)
+  const auth = useAuth(firebase.auth);
+  const database = firebase.database();   //вызвали метод database() и получили из firebase базу
+  useDB(database);                        //закинули базу данных в хук useBD
+  
 
 
   const openItemObj = useOpenItem();
@@ -53,7 +56,7 @@ function App() {
         removeFromOrders={removeFromOrders} 
         {...openItemObj} 
         {...auth}
-        firebaseDatabase = {firebase.database}
+        database = {database}
       ></Order>
       <Menu setOpenItem={openItemObj.setOpenItem} />
       {openItemObj.openItem && <ModalItem {...openItemObj} {...ordersObj} />}

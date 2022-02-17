@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MenuChapter from './MenuChapter';
 import BannerPicture from "../../images/banner.png";
 import PropTypes from 'prop-types';
-import useFetch from  "../Hooks/useFetch";
+import useDB from  "../Hooks/useDB";
 import Loading from "../../Loading"
 
 
@@ -26,20 +26,21 @@ const BannerMenu = styled.div`
 
 
 const Menu = ({ setOpenItem }) => {
-    const result = useFetch();
-    const DBmenu = result.response;
+    // const result = useDB();
+    const DBmenu = useDB();
     // console.log("useFetch(): ", useFetch())
     return (
                 <MenuStyled>
                 <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
                     {//если данные пришли result.response, то отображаем меню, иначе загрузку
-                        result.response ? 
+                        DBmenu ? 
                         <>
                             <MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger} setOpenItem={setOpenItem}/>
                             <MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other} setOpenItem={setOpenItem}/>
                         </>
-                        : result.error ? <div>Sorry, we already start fix the problem...</div>
                         : <Loading/>
+                        // : result.error ? <div>Sorry, we already start fix the problem...</div>
+                        // : <Loading/>
                     }
                 </MenuStyled>
                 
