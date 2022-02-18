@@ -30,3 +30,25 @@ margin-bottom: 15px;
 export const SmthLabel = styled.label`
 cursor: pointer;
 `;
+
+export const Overlay = styled.div`
+position: fixed;
+top: 0; bottom: 0; 
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5); 
+`;
+
+export const ModalWindow = styled.div`
+    position: absolute;
+    top: 50%; left: 50%;    
+
+    width: 600px;
+    min-height: 600px;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    background: #fff;
+
+    transform: translate(-50%, -50%);
+`;

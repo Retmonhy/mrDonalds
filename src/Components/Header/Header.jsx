@@ -1,28 +1,29 @@
 import propTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import headLogo from "../../images/logo.svg";
 import PropTypes from 'prop-types';
 import loginImage from "../../images/sign.svg";
+import Context from "../../context";
 
 const HeaderTag = styled.header`
 position: fixed;
 z-index: 100000;
 top: 0;
-left: 0; rigth: 0;
+left: 0; right: 0;
 width: 100%;
 
 display: flex;
 justify-content: space-between;
 align-items: center;
-heigth: 80px;
+height: 80px;
 padding: 5px 30px;
 background: #299B01;
 `;
 
 const H1 = styled.h1`
-  font-sixe: 24px;
-  line-heigth: 42px;
+  font-size: 24px;
+  line-height: 42px;
   color: #ffffff;
 `;
 const ButtonLogin = styled.button`
@@ -36,7 +37,7 @@ const ButtonLogin = styled.button`
   
   span{
     font-size: 16px;
-    line-heigth: 19px;
+    line-height: 19px;
   }
 `;
 const ButtonLogout = styled(ButtonLogin)`
@@ -48,7 +49,9 @@ const Wrapper = styled.div`
   img{margin-right: 15px;}
 `; 
 
-export default function Header({ authentification, logIn, logOut }) {
+export default function Header() {
+  // console.log(useContext(Context))
+  const {auth: { authentification, logIn, logOut } } = useContext(Context);
     return (
         <HeaderTag>
             <Wrapper as="a" href="/" className="wrapper">
@@ -72,8 +75,8 @@ export default function Header({ authentification, logIn, logOut }) {
     );
 }
 
-Header.propTypes = {
-  authentification: PropTypes.object,
-  logIn: PropTypes.func,
-  logOut: PropTypes.func,
-}
+// Header.propTypes = {
+//   authentification: PropTypes.object,
+//   logIn: PropTypes.func,
+//   logOut: PropTypes.func,
+// }

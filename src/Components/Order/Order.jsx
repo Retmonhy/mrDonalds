@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { ButtonElem } from "../Supp/SuppComp/SuppComp";
 import OrderItem from "./OrderItem";
 import OrderTotal from "./OrderTotal";
 import PropTypes from 'prop-types';
-import { projection } from '../Supp/SuppFunc/SuppFunctions'
+import Context from "../../context";
+
+
 
 
 
@@ -28,35 +30,15 @@ export const Span = styled.span`
 export const Span140 = styled(Span)`
     width: 140px; text-align: left;  `;
 
+        
 
-
-
-
-        //создаем новый объект, чтобы передавать более красивые и структурированные данные
-        //и зачем-то передаем все эти данные в виде массивов, даже одиночные типа name или price
-  const dataRules = {
-    name : ["name"],
-    price : ["price"],
-    amount : ['amount'],
-    toppings : ['orderToppings', array => array ? (array.filter(item => item.checked)).map(obj => obj.name) : "No toppings"],
-    choices : ['orderChoice', item => item ? item : "No choices"]
-  }
-
-export const Order = ({orders, setOrders, removeFromOrders, setOpenItem, authentification, logIn, firebaseDatabase}) => {
+const Order = ({ removeFromOrders }) => {
     //database - объект для управления базой данных
-    const dataBase = firebaseDatabase();
-
-    const sendOrder = () => {
-        const newOrder = orders.map(projection(dataRules))
-        dataBase.ref('order').push().set({
-            nameClient: authentification.displayName,
-            email: authentification.email,
-            order: newOrder,
-        })
-        .then(() => setOrders([]))
-        .catch(error => console.log(error))
-
-    }
+    const { auth : { authentification, logIn }} = useContext(Context);
+    const { ordersObj : { orders, setOrders }} = useContext(Context);
+    const { orderConfirmObj : { setOpenOrderConfirm }} = useContext(Context);
+    const { openItemObj : { setOpenItem }} = useContext(Context);
+    
     
     return (
         
@@ -74,12 +56,12 @@ export const Order = ({orders, setOrders, removeFromOrders, setOpenItem, authent
                    : <p>Вы пока ничего не заказали</p>
                 }
             </OrderList>
-            <OrderTotal orders={orders} ></OrderTotal>
-            <ButtonElem onClick={() => {authentification ? sendOrder(orders) : logIn()}}>Оформить</ButtonElem>
+            { orders.length > 0 &&  <OrderTotal orders={orders} ></OrderTotal>}
+            { orders.length > 0 &&  <ButtonElem onClick={() => {authentification ? setOpenOrderConfirm(true) : logIn()}}>Оформить</ButtonElem>}
         </OrderStyled>
     );
 }
-
+export default Order;
 Order.propTypes = {
     orders: PropTypes.array.isRequired,
     setOrders: PropTypes.func,

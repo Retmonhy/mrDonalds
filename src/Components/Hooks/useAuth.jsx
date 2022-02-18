@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useAuth = (authFirebase) => {
+const useAuth = (authFirebase) => {
     const [ authentification, setAuthentification ] = useState(null);
     
     const auth = authFirebase(); //это объект  с авторизацией
@@ -29,3 +29,5 @@ export const useAuth = (authFirebase) => {
                             // authentification - содержит все данные аутентифицировавшегося пользователя,
                             // login - функция, выполняет аутентификацию
 }
+
+export default useAuth;

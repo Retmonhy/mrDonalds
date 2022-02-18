@@ -28,7 +28,6 @@ const BannerMenu = styled.div`
 const Menu = ({ setOpenItem }) => {
     const result = useFetch();
     const DBmenu = result.response;
-    // console.log("useFetch(): ", useFetch())
     return (
                 <MenuStyled>
                 <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from "styled-components";
 import { ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 import { localizeCost, calcTotalCost } from "../Supp/SuppFunc/SuppFunctions";
@@ -8,27 +8,11 @@ import useChoices from "../Hooks/useChoices";
 import Toppings from "./Toppings";
 import Choices from "./Choices";
 import PropTypes from 'prop-types'
-import { func } from 'prop-types';
+import  { Overlay, ModalWindow } from "../Supp/SuppComp/SuppComp";
+import Context from "../../context";
 
-const Overlay = styled.div`
-position: fixed;
-top: 0; bottom: 0; 
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.5); 
-`;
 
-const ModalWindow = styled.div`
-    position: absolute;
-    top: 50%; left: 50%;    
 
-    width: 600px;
-    min-height: 600px;
-    border-radius: 10px;
-    background: #fff;
-
-    transform: translate(-50%, -50%);
-`;
 
 const ModalBanner = styled.div`
     width: 100%;
@@ -73,11 +57,15 @@ font-size: 30px;
 line-height: 53px;
 `;
 
-export const ModalItem = ( {openItem, setOpenItem, orders, setOrders}) => {
+const ModalItem = ( ) => {
+    const { openItemObj: {openItem, setOpenItem} } = useContext(Context);
+    const { ordersObj: {orders, setOrders} } = useContext(Context);
+
     let { amount, setAmount, onChange} = useAmount(openItem.amount);
     const { toppingsObj, checkToppings } = useToppings(openItem);
     const { choice, doChoice } = useChoices(openItem);
     const isEdit = openItem.index > -1;
+
 
     
     
@@ -153,9 +141,11 @@ export const ModalItem = ( {openItem, setOpenItem, orders, setOrders}) => {
     );
 } 
 
+export default ModalItem;
+
 ModalItem.propTypes = {
-    openItem: PropTypes.object.isRequired,
+    openItem: PropTypes.object,
     setOpenItem: PropTypes.func,
-    orders: PropTypes.array.isRequired,
+    orders: PropTypes.array,
     setOpenItem: PropTypes.func,
 }
