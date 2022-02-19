@@ -15,7 +15,7 @@ const Section = styled.section`
     padding: 0 100px; 
 `;
 
-const MenuChapter = ({chapterName, menuItems, setOpenItem}) => {
+const MenuChapter = ({chapterName, menuItems }) => {
     return (
         <Section className="menu-chapter">
            <h2>{chapterName }</h2>
@@ -24,7 +24,6 @@ const MenuChapter = ({chapterName, menuItems, setOpenItem}) => {
                     menuItems.map(item =>  <MenuItem 
                         key={item.id}
                         menuPosition={item}
-                        setOpenItem={setOpenItem}
                     />)
                 }
             </Ul>
@@ -35,7 +34,6 @@ const MenuChapter = ({chapterName, menuItems, setOpenItem}) => {
 MenuChapter.propTypes = {
     chapterName: PropTypes.string.isRequired,
     menuItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-    setOpenItem: PropTypes.func.isRequired,
 }
 
 export default MenuChapter

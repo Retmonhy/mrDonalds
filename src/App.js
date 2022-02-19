@@ -5,18 +5,20 @@ import Header from "./Components/Header/Header";
 import Menu from './Components/Menu/Menu';
 import ModalItem  from "./Components/Modal/ModalItem";
 import Order  from "./Components/Order/Order";
-import OrderConfirm from "./Components/Order/OrderConfirm"
+import OrderConfirm from "./Components/Order/OrderConfirm";
+import OrderThanks from "./Components/Order/OrderThanks";
 /* Hooks */
 import useOrder from "./Components/Hooks/useOrder";
 import useOpenItem from "./Components/Hooks/useOpenItem";
 import useTitle from "./Components/Hooks/useTitle";
 import useAuth from "./Components/Hooks/useAuth";
-import useOrderConfirm from "./Components/Hooks/useOrderConfirm"
+import useOrderConfirm from "./Components/Hooks/useOrderConfirm";
+import useOrderThanks from "./Components/Hooks/useOrderTranks"
 /* Firebase */
 import  firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database"; //вернет объект для управления базой данных
-import Context from './context';
+import Context from './Components/Context/context';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBaiWc8gas0fdroCnbZG0u6WvtvF_xgwtU",
@@ -36,6 +38,7 @@ const App = () => {
   const openItemObj = useOpenItem();
   const ordersObj =   useOrder();
   const orderConfirmObj = useOrderConfirm(); 
+  const orderThanksObj = useOrderThanks();
   
   useTitle(openItemObj.openItem)
   const removeFromOrders = (index) => {
@@ -49,13 +52,13 @@ const App = () => {
           {...ordersObj}
         removeFromOrders={removeFromOrders} 
           {...openItemObj} 
-          {...auth}
         dataBase = {(firebase.database)()}
           {...orderConfirmObj}
-      ></Order>
-      <Menu setOpenItem={openItemObj.setOpenItem} />
+      />
+      <Menu/>
       {openItemObj.openItem && <ModalItem/>}\
-      { orderConfirmObj.openOrderConfirm && <OrderConfirm dataBase={(firebase.database)()} /> } 
+      { orderConfirmObj.openOrderConfirm && <OrderConfirm dataBase={(firebase.database)()} setOrderThanks={orderThanksObj.setOrderThanks} /> } 
+      { orderThanksObj.orderThanks && <OrderThanks setOrderThanks={orderThanksObj.setOrderThanks}/>}
     </Context.Provider>
   );
 }

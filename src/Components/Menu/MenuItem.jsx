@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { localizeCost } from "../Supp/SuppFunc/SuppFunctions"
 import PropTypes from 'prop-types';
+import Context from "../Context/context"
 
 const ListItem = styled.li`
 position: relative;
@@ -29,7 +30,8 @@ margin-bottom: 30px;
     }
 }
 `;
-const MenuItem = ({ menuPosition, setOpenItem }) => {
+const MenuItem = ({ menuPosition }) => {
+    const { openItemObj: {setOpenItem} } = useContext(Context);
     const openModal = () => {
         setOpenItem({
             id : menuPosition.id,
@@ -58,6 +60,5 @@ const MenuItem = ({ menuPosition, setOpenItem }) => {
 
 MenuItem.propTypes = {
     menuPosition: PropTypes.object.isRequired,
-    setOpenItem: PropTypes.func.isRequired,
 }
 export default MenuItem

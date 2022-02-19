@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { SmthWrapper, SmthWrap, SmthLabel } from '../Supp/SuppComp/SuppComp';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import ContextItem from "../Context/contextItem"
 
 const ChoicesRadioInput = styled.input`
     cursor: pointer;
 `;
 
-const Choices = ({ openItem, choice, doChoice }) => {
+const Choices = ({ openItem }) => {
+    const {choiceObj: { choice, doChoice }} = useContext(ContextItem)
     return(
         <>
             <h3>Сделайте выбор:</h3><br/>
@@ -36,8 +38,8 @@ const Choices = ({ openItem, choice, doChoice }) => {
 
 Choices.propTypes = {
     openItem: PropTypes.object.isRequired,
-    choice: PropTypes.string.isRequired,
-    doChoice: PropTypes.func.isRequired,
+    choice: PropTypes.string,
+    doChoice: PropTypes.func,
 }
 
 export default Choices; 

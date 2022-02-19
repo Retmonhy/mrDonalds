@@ -49,6 +49,6 @@ export const ModalWindow = styled.div`
     text-align: center;
     border-radius: 10px;
     background: #fff;
-
+    box-shadow: 0 0 50px 10px #444;
     transform: translate(-50%, -50%);
 `;

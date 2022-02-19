@@ -25,7 +25,7 @@ const BannerMenu = styled.div`
 `;
 
 
-const Menu = ({ setOpenItem }) => {
+const Menu = ( ) => {
     const result = useFetch();
     const DBmenu = result.response;
     return (
@@ -34,21 +34,18 @@ const Menu = ({ setOpenItem }) => {
                     {//если данные пришли result.response, то отображаем меню, иначе загрузку
                         result.response ? 
                         <>
-                            <MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger} setOpenItem={setOpenItem}/>
-                            <MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other} setOpenItem={setOpenItem}/>
+                            <MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>
+                            <MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other}/>
                         </>
                         : result.error ? <div>Sorry, we already start fix the problem...</div>
                         : <Loading/>
                     }
-                </MenuStyled>
-                
-        
+                </MenuStyled>        
     );
 }
 
 Menu.propTypes = {
     listItem: PropTypes.object,
-    setOpenItem: PropTypes.func.isRequired,
 
 }
 export default  Menu;

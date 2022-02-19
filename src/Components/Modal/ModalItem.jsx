@@ -9,7 +9,8 @@ import Toppings from "./Toppings";
 import Choices from "./Choices";
 import PropTypes from 'prop-types'
 import  { Overlay, ModalWindow } from "../Supp/SuppComp/SuppComp";
-import Context from "../../context";
+import Context from "../Context/context";
+import ContextItem from "../Context/contextItem";
 
 
 
@@ -61,9 +62,13 @@ const ModalItem = ( ) => {
     const { openItemObj: {openItem, setOpenItem} } = useContext(Context);
     const { ordersObj: {orders, setOrders} } = useContext(Context);
 
-    let { amount, setAmount, onChange} = useAmount(openItem.amount);
-    const { toppingsObj, checkToppings } = useToppings(openItem);
-    const { choice, doChoice } = useChoices(openItem);
+    const amountObj = useAmount(openItem.amount);
+    const toppingsObject = useToppings(openItem)
+    const choiceObj = useChoices(openItem)
+    const { amount, setAmount, onChange} = amountObj;
+    const { toppingsObj, checkToppings } = toppingsObject;
+    const { choice, doChoice } = choiceObj;
+
     const isEdit = openItem.index > -1;
 
 
@@ -93,51 +98,51 @@ const ModalItem = ( ) => {
     }   
 
     return (
-        <Overlay  id="overlay" onClick={closeModal}>
-            <ModalWindow id="modalWindow" openItem={openItem}>
-                <ModalBanner img={openItem.img}/>
-                <ModalWrapper>
-                    <ElemWrapper>
-                        <H2>{ openItem.name }</H2> 
-                        <H2>{ localizeCost( openItem.price) }</H2>     
-                    </ElemWrapper>
-
-
-                    <div style={{width: "100%",}}>
+        <ContextItem.Provider value={{amountObj, toppingsObject, choiceObj}}>
+            <Overlay  id="overlay" onClick={closeModal}>
+                <ModalWindow id="modalWindow" openItem={openItem}>
+                    <ModalBanner img={openItem.img}/>
+                    <ModalWrapper>
                         <ElemWrapper>
-                            <span>Количество</span>
-                            <div>
-                                <ButtonCount disabled={amount <= 1} onClick={() => {setAmount( amount - 1)}}>-</ButtonCount>
-                                {/* <InputCount type="number" value={openItem.amount ? openItem.amount : amount >= 2 ? amount : 1} onChange={onChange}/> */}
-                                <InputCount type="number" value={amount >= 2 ? amount : 1} onChange={onChange}/> 
-                                <ButtonCount onClick={() => {setAmount( amount + 1)}}>+</ButtonCount>
-                            </div>
+                            <H2>{ openItem.name }</H2> 
+                            <H2>{ localizeCost( openItem.price) }</H2>     
                         </ElemWrapper>
-                        <br/>
-                        {/* {(isEdit && openItem.orderToppings.length > 0) && <Toppings toppingsObj={openItem.orderToppings} checkToppings={checkToppings}/>} */}
-                        {(openItem.toppings && openItem.toppings.length > 0) && <Toppings toppingsObj={toppingsObj} checkToppings={checkToppings}/>}
-                        <br/>
-                        {(openItem.choices && openItem.choices.length > 0) && <Choices openItem={openItem} choice={choice} doChoice={doChoice}/>}
-                        <br/>
-                        <ElemWrapper>
-                            <span>ИТОГ</span>
-                            <span>{localizeCost(calcTotalCost(
-                                 openItem.price, 
-                                 amount, 
-                                 toppingsObj
-                                ))}</span>
-                        </ElemWrapper>
-                    </div>
 
-                    <ElemWrapper>
-                        <ButtonElem 
-                        onClick={() => {isEdit ? editOrder() : addToOrders(); setOpenItem(null)}}
-                        disabled={openItem.choices.length > 0 && !choice}
-                        >{isEdit ? "Редактировать" : 'Добавить'}</ButtonElem>
-                    </ElemWrapper>
-                </ModalWrapper>
-            </ModalWindow>
-        </Overlay>
+
+                        <div style={{width: "100%",}}>
+                            <ElemWrapper>
+                                <span>Количество</span>
+                                <div>
+                                    <ButtonCount disabled={amount <= 1} onClick={() => {setAmount( amount - 1)}}>-</ButtonCount>
+                                    <InputCount type="number" value={amount >= 2 ? amount : 1} onChange={onChange}/> 
+                                    <ButtonCount onClick={() => {setAmount( amount + 1)}}>+</ButtonCount>
+                                </div>
+                            </ElemWrapper>
+                            <br/>
+                            {(openItem.toppings && openItem.toppings.length > 0) && <Toppings/>}
+                            <br/>
+                            {(openItem.choices && openItem.choices.length > 0) && <Choices openItem={openItem}/>}
+                            <br/>
+                            <ElemWrapper>
+                                <span>ИТОГ</span>
+                                <span>{localizeCost(calcTotalCost(
+                                    openItem.price, 
+                                    amount, 
+                                    toppingsObj
+                                    ))}</span>
+                            </ElemWrapper>
+                        </div>
+
+                        <ElemWrapper>
+                            <ButtonElem 
+                            onClick={() => {isEdit ? editOrder() : addToOrders(); setOpenItem(null)}}
+                            disabled={openItem.choices.length > 0 && !choice}
+                            >{isEdit ? "Редактировать" : 'Добавить'}</ButtonElem>
+                        </ElemWrapper>
+                    </ModalWrapper>
+                </ModalWindow>
+            </Overlay>
+        </ContextItem.Provider>
     );
 } 
 

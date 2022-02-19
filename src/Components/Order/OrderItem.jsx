@@ -23,12 +23,10 @@ const SmallDiv = styled.div`
     width: 100%;
 `;
 
-
-// const OrderItem = ({ position: { openItem, amount, orderToppings, orderChoice }, index, removeFromOrders, setOpenItem }) => {
-    const OrderItem = ({ position, index, removeFromOrders, setOpenItem }) => {
+const OrderItem = ({ position, index, removeFromOrders, setOpenItem }) => {
     return (
     <>
-    {<li className="order-item" style={{marginBottom: "15px",}} onClick={(evt) => setOpenItem({...position, index})}>
+    {<li className="order-item" style={{marginBottom: "15px",}} onClick={() => setOpenItem({...position, index})}>
         <DivFlex styles={{flexWrap: "wrap",}}>
             <div className="position-sum" style={{display: "flex", alignItem: "center"}}>
                 <span className="position-name" style={{width: "140px", display: "inline-block", textAlign: "left"}}>{position.name} {position.orderChoice}</span>

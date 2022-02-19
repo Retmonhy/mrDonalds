@@ -4,7 +4,7 @@ import { ButtonElem } from "../Supp/SuppComp/SuppComp";
 import OrderItem from "./OrderItem";
 import OrderTotal from "./OrderTotal";
 import PropTypes from 'prop-types';
-import Context from "../../context";
+import Context from "../Context/context";
 
 
 
@@ -35,7 +35,7 @@ export const Span140 = styled(Span)`
 const Order = ({ removeFromOrders }) => {
     //database - объект для управления базой данных
     const { auth : { authentification, logIn }} = useContext(Context);
-    const { ordersObj : { orders, setOrders }} = useContext(Context);
+    const { ordersObj : { orders }} = useContext(Context);
     const { orderConfirmObj : { setOpenOrderConfirm }} = useContext(Context);
     const { openItemObj : { setOpenItem }} = useContext(Context);
     

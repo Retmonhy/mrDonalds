@@ -3,7 +3,7 @@ import styled from "styled-components"
 import  { Overlay, ModalWindow, ElemWrapper, ButtonElem } from "../Supp/SuppComp/SuppComp";
 import OrderTotal from "../Order/OrderTotal";
 import { projection } from '../Supp/SuppFunc/SuppFunctions';
-import Context from "../../context";
+import Context from "../Context/context";
 
 const Text = styled.h3``;
 const ModalHeader = styled.h2``;
@@ -37,7 +37,7 @@ const sendOrder = (dataBase, authentification, orders) => {
     // .then()
     .catch(error => console.log(error))
 }
-const OrderConfirm = ({  dataBase }) => {
+const OrderConfirm = ({  dataBase, setOrderThanks }) => {
     const { auth: {authentification}} = useContext(Context);
     const { ordersObj: { orders, setOrders }} = useContext(Context);
     const { orderConfirmObj: { setOpenOrderConfirm }} = useContext(Context);
@@ -53,7 +53,9 @@ const OrderConfirm = ({  dataBase }) => {
                         onClick={() => 
                             {sendOrder(dataBase, authentification, orders); 
                             setOrders([]); 
-                            setOpenOrderConfirm(false)}}>
+                            setOpenOrderConfirm(false);
+                            setOrderThanks(true)
+                            }}>
                             Подтвердить
                         </ButtonElem>
                     </ElemWrapper>

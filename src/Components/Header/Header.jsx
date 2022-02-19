@@ -4,7 +4,7 @@ import styled from "styled-components";
 import headLogo from "../../images/logo.svg";
 import PropTypes from 'prop-types';
 import loginImage from "../../images/sign.svg";
-import Context from "../../context";
+import Context from "../Context/context";
 
 const HeaderTag = styled.header`
 position: fixed;
