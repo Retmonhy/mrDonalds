@@ -23,7 +23,7 @@ const OrderStyled = styled.section`
 `;
 const OrderHeader = styled.h2` font-size: 39px; line-height: 69px; text-align: center; text-transform: uppercase;`;
 const OrderList = styled.ul` margin-top: 60px; min-height: 550px; `;
-export const DivFlex = styled.div`display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;`;
+export const DivFlex = styled.div`display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 5px;`;
 export const Span = styled.span`
     display: inline-block; min-width: 40px;
     margin-left: 10px; `;

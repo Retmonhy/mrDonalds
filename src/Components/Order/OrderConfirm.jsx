@@ -7,9 +7,9 @@ import Context from "../Context/context";
 
 const Text = styled.h3``;
 const ModalHeader = styled.h2``;
-const ModalWrap = styled.div`
-    height: 100%;
-    width: 100%;
+const ModalWrap = styled(ModalWindow)`
+    min-height: 300px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +43,6 @@ const OrderConfirm = ({  dataBase, setOrderThanks }) => {
     const { orderConfirmObj: { setOpenOrderConfirm }} = useContext(Context);
     return(
         <Overlay>
-            <ModalWindow>
                 <ModalWrap>
                     <ModalHeader>{ authentification.displayName }</ModalHeader>
                     <Text>осталось только подтвердить Ваш заказ</Text>
@@ -60,7 +59,6 @@ const OrderConfirm = ({  dataBase, setOrderThanks }) => {
                         </ButtonElem>
                     </ElemWrapper>
                 </ModalWrap>
-            </ModalWindow>
         </Overlay>
     );
 }
