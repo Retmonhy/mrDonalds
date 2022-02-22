@@ -5,6 +5,7 @@ import OrderItem from "./OrderItem";
 import OrderTotal from "./OrderTotal";
 import PropTypes from 'prop-types';
 import Context from "../Context/context";
+import styles from "./Order.module.css"
 
 
 
@@ -20,6 +21,8 @@ const OrderStyled = styled.section`
     background: #fff;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.25);
     text-align: center;
+    transition: 0.7s;
+    z-index: 10;
 `;
 const OrderHeader = styled.h2` font-size: 39px; line-height: 69px; text-align: center; text-transform: uppercase;`;
 const OrderList = styled.ul` margin-top: 60px; min-height: 550px; `;
@@ -38,27 +41,30 @@ const Order = ({ removeFromOrders }) => {
     const { ordersObj : { orders }} = useContext(Context);
     const { orderConfirmObj : { setOpenOrderConfirm }} = useContext(Context);
     const { openItemObj : { setOpenItem }} = useContext(Context);
+    const { cartShowedObj : { cartShowed, setCartShowed }} = useContext(Context); 
     
     
     return (
         
-        <OrderStyled>
-            <OrderHeader>ВАШ ЗАКАЗ</OrderHeader>
-            <OrderList className="order-list">
-                {
-                   orders.length 
-                   ? orders.map( (item, index) => <OrderItem 
-                       position={item}
-                       index={index} 
-                       removeFromOrders={removeFromOrders}
-                       setOpenItem={setOpenItem}
-                       key={index}/> ) 
-                   : <p>Вы пока ничего не заказали</p>
-                }
-            </OrderList>
-            { orders.length > 0 &&  <OrderTotal orders={orders} ></OrderTotal>}
-            { orders.length > 0 &&  <ButtonElem onClick={() => {authentification ? setOpenOrderConfirm(true) : logIn()}}>Оформить</ButtonElem>}
-        </OrderStyled>
+                <OrderStyled className={ cartShowed ? styles.cartShowed : styles.cartHidden}>
+                    <OrderHeader>ВАШ ЗАКАЗ</OrderHeader>
+                    <OrderList className="order-list">
+                        {
+                        orders.length 
+                        ? orders.map( (item, index) => <OrderItem 
+                            position={item}
+                            index={index} 
+                            removeFromOrders={removeFromOrders}
+                            setOpenItem={setOpenItem}
+                            key={index}/> ) 
+                        : <p>Вы пока ничего не заказали</p>
+                        }
+                    </OrderList>
+                    { orders.length > 0 &&  <OrderTotal orders={orders} ></OrderTotal>}
+                    { orders.length > 0 &&  <ButtonElem onClick={() => {authentification ? setOpenOrderConfirm(true) : logIn()}}>Оформить</ButtonElem>}
+                </OrderStyled>
+
+        
     );
 }
 export default Order;

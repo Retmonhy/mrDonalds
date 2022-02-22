@@ -26,8 +26,8 @@ const ModalBanner = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-    padding: 30px;
     min-height: 390px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;

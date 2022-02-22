@@ -10,9 +10,10 @@ import Loading from "../../Loading"
 const MenuStyled = styled.section`
     width: 100%;
     background: #E5E5E5;
-    max-width: calc(100% - 380px);
-    margin-top: 80px;
-    margin-left: 380px;
+    /* max-width: calc(100% - 380px); */
+    max-width: 100%;
+    margin-top: 80px;transition: 1.5s;
+    /* margin-left: 380px; */
     `;
 const BannerMenu = styled.div`
     background: url('../images/banner.png');

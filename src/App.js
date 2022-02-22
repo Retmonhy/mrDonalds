@@ -13,7 +13,8 @@ import useOpenItem from "./Components/Hooks/useOpenItem";
 import useTitle from "./Components/Hooks/useTitle";
 import useAuth from "./Components/Hooks/useAuth";
 import useOrderConfirm from "./Components/Hooks/useOrderConfirm";
-import useOrderThanks from "./Components/Hooks/useOrderTranks"
+import useOrderThanks from "./Components/Hooks/useOrderTranks";
+import useCartShowed from "./Components/Hooks/useCartShowed";
 /* Firebase */
 import  firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -39,6 +40,7 @@ const App = () => {
   const ordersObj =   useOrder();
   const orderConfirmObj = useOrderConfirm(); 
   const orderThanksObj = useOrderThanks();
+  const cartShowedObj = useCartShowed();
   
   useTitle(openItemObj.openItem)
   const removeFromOrders = (index) => {
@@ -46,8 +48,8 @@ const App = () => {
 } 
 
   return (
-    <Context.Provider value={{ auth, openItemObj, ordersObj, orderConfirmObj }}>
-      <Header/> {/* передаем auth, а точнее функцию login в кнопку войти*/}
+    <Context.Provider value={{ auth, openItemObj, ordersObj, orderConfirmObj, cartShowedObj }}>
+      <Header {...cartShowedObj} orders={ordersObj.orders}/> {/* передаем auth, а точнее функцию login в кнопку войти*/}
       <Order 
           {...ordersObj}
         removeFromOrders={removeFromOrders} 

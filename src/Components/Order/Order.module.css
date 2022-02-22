@@ -1,0 +1,7 @@
+.cartShowed {
+    transform: translateX(0);
+}
+
+.cartHidden {
+    transform: translateX(-110%);
+}
