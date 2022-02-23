@@ -3,10 +3,14 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import headLogo from "../../images/logo.svg";
 import CartSvg from "../../images/cart.svg";
+import BurgerSvg from "../../images/burger.svg";
+import ColaSvg from "../../images/cola.svg";
+
 import PropTypes from 'prop-types';
 import loginImage from "../../images/sign.svg";
 import Context from "../Context/context";
-
+import { Link } from "react-router-dom"
+ 
 const HeaderTag = styled.header`
 position: fixed;
 z-index: 100000;
@@ -58,12 +62,15 @@ const ButtonCart = styled(ButtonLogin)`
 		background-color: #c07f07;
 		top: -40%;
 		left: 60%;
-		transform: translateX(-50%)
+		transform: translateX(-50%);
+		pointer-events: none;
 
 	}
 `;
 const ButtonLogout = styled(ButtonLogin)`
 `;
+const ButtonProfile = styled(ButtonLogin)``;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -71,6 +78,15 @@ const Wrapper = styled.div`
 `; 
 const LogoWrapper = styled(Wrapper)`
 	img{ margin-right: 15px;}
+`;
+const NavBarUl = styled.ul`
+	display: flex; 
+	align-items: center;
+	justify-content: start;
+	li {margin-right: 20px; color: #fff; display: flex; 
+		img {width: 30px;}
+	}
+	
 `;
 
 export default function Header({ cartShowed, setCartShowed, orders}) {
@@ -83,13 +99,31 @@ export default function Header({ cartShowed, setCartShowed, orders}) {
                 <H1>MrDonald's</H1>
             </LogoWrapper>
 			<Wrapper>
+				<nav>
+					<NavBarUl>
+						<li>
+							<img src={BurgerSvg} alt="burger"/>
+							<Link to="/burgers">Бургеры</Link>
+						</li>
+						<li>
+							<img src={ColaSvg} alt="cola"/>
+							<Link to="/other">Напитки и прочее</Link>
+						</li>
+					</NavBarUl>
+				</nav>
+			</Wrapper>
+			<Wrapper>
 				{authentification 
-				?
-				<ButtonLogout onClick={logOut}>
-				<img src={loginImage} alt={authentification.displayName}></img>
-				<span>{authentification.displayName}</span>
-				<span>Выйти</span>
-				</ButtonLogout> 
+				?<Wrapper>
+					<ButtonProfile>
+						<Link to="/profile">Профиль</Link>
+					</ButtonProfile>
+					<ButtonLogout onClick={logOut}>
+					<img src={loginImage} alt={authentification.displayName}></img>
+					<span>{authentification.displayName}</span>
+					<span>Выйти</span>
+					</ButtonLogout> 
+				</Wrapper>
 				:
 				<ButtonLogin onClick={logIn}>
 				<img src={loginImage} alt="login"></img>

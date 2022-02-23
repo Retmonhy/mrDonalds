@@ -7,6 +7,8 @@ import ModalItem  from "./Components/Modal/ModalItem";
 import Order  from "./Components/Order/Order";
 import OrderConfirm from "./Components/Order/OrderConfirm";
 import OrderThanks from "./Components/Order/OrderThanks";
+import Profile from "./Components/Profile/Profile"
+import { Routes, Route } from 'react-router-dom';
 /* Hooks */
 import useOrder from "./Components/Hooks/useOrder";
 import useOpenItem from "./Components/Hooks/useOpenItem";
@@ -48,20 +50,27 @@ const App = () => {
 } 
 
   return (
+    
     <Context.Provider value={{ auth, openItemObj, ordersObj, orderConfirmObj, cartShowedObj }}>
-      <Header {...cartShowedObj} orders={ordersObj.orders}/> {/* передаем auth, а точнее функцию login в кнопку войти*/}
-      <Order 
-          {...ordersObj}
-        removeFromOrders={removeFromOrders} 
-          {...openItemObj} 
-        dataBase = {(firebase.database)()}
-          {...orderConfirmObj}
-      />
-      <Menu/>
-      {openItemObj.openItem && <ModalItem/>}\
-      { orderConfirmObj.openOrderConfirm && <OrderConfirm dataBase={(firebase.database)()} setOrderThanks={orderThanksObj.setOrderThanks} /> } 
-      { orderThanksObj.orderThanks && <OrderThanks setOrderThanks={orderThanksObj.setOrderThanks}/>}
-    </Context.Provider>
+        <div className="background-wrapper"></div>
+        <Header {...cartShowedObj} orders={ordersObj.orders}/> {/* передаем auth, а точнее функцию login в кнопку войти*/}
+        <Order 
+            {...ordersObj}
+          removeFromOrders={removeFromOrders} 
+            {...openItemObj} 
+          dataBase = {(firebase.database)()}
+            {...orderConfirmObj}
+        />
+        <Routes>
+          <Route path="/" element={<Menu/>}/>
+          <Route path="profile" element={<Profile/>}/>
+        </Routes>
+        <Menu/>
+        {openItemObj.openItem && <ModalItem/>}\
+        { orderConfirmObj.openOrderConfirm && <OrderConfirm dataBase={(firebase.database)()} setOrderThanks={orderThanksObj.setOrderThanks} /> } 
+        { orderThanksObj.orderThanks && <OrderThanks setOrderThanks={orderThanksObj.setOrderThanks}/>}
+      </Context.Provider>
+    
   );
 }
 

@@ -5,6 +5,24 @@ body {
     padding: 0;
 }
 
+.background-wrapper {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url(../src/images/bg2.jpg);
+    background-size: cover;
+    filter: blur(2px)
+}
+
+.container {
+    max-width: 1200px;
+    padding: 0 30px;
+    margin: 0 auto;
+}
+
 body {
     font-size: 20px;
     font-family: Roboto, sans-serif;

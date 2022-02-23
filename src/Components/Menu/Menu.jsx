@@ -5,6 +5,7 @@ import BannerPicture from "../../images/banner.png";
 import PropTypes from 'prop-types';
 import useFetch from  "../Hooks/useFetch";
 import Loading from "../../Loading"
+import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 
 
 const MenuStyled = styled.section`
@@ -30,18 +31,22 @@ const Menu = ( ) => {
     const result = useFetch();
     const DBmenu = result.response;
     return (
+            <div className="container">
                 <MenuStyled>
                 <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
                     {//если данные пришли result.response, то отображаем меню, иначе загрузку
                         result.response ? 
-                        <>
-                            <MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>
-                            <MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other}/>
-                        </>
+                        <Routes>
+                            <Route index element={<MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>}/>
+                            <Route path="/burgers" element={<MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>} />
+                            <Route path="/other" element={<MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other}/>} />
+                        </Routes>
                         : result.error ? <div>Sorry, we already start fix the problem...</div>
                         : <Loading/>
                     }
-                </MenuStyled>        
+                </MenuStyled>    
+                <Outlet/>    
+            </div>
     );
 }
 

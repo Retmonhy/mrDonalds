@@ -19,7 +19,10 @@ margin-bottom: 30px;
     img {
         width: 100%;
         height: 100%;
-        filter: brightness(50%);
+        filter: brightness(65%);
+        box-shadow: 3px 3px 15px 2px #ccc;
+        border-radius: 10px;
+        overflow: hidden;
     }
     .descWrapper{position: absolute; top: 0; left: 0; padding-left: 15px; padding-top: 5px;}
     p{ color: #fff; font-size: 30px; line-height: 35px; z-index: 2;}
