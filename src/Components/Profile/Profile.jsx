@@ -1,20 +1,36 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import Context from "../Context/context";
+import ProfileMenu from "./ProfiliMenu";
+import ProfileUserData from "./ProfileUserData";
+import s from "./Profile.module.css"
 
-const ProfileWrapper = styled.div``;
+
+
+
+const ProfileOuter = styled.div`
+`;
+const ProfileWrapper = styled.div`
+    width: 100%; 
+    height: 100%;
+    padding: 10px;
+    
+    background-color: #fff;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: start;
+    justify-content: space-between;
+`;
 const UserData = styled.div``;
 
 const Profile = () => {
     const { auth : { authentification } } = useContext(Context)
-    console.log(authentification);
     return (
         <>
+        <h2>Мой профиль</h2>
         <ProfileWrapper className="profile-wrapper">
-            <UserData className="users-data">
-                <span>Имя пользователя: </span><span>{authentification.displayName}</span>
-                <span>Email: </span><span>{authentification.email}</span>
-            </UserData>
+            <ProfileMenu/>
+            <ProfileUserData/>
         </ProfileWrapper>
         </>
     );

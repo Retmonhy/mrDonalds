@@ -20,7 +20,7 @@ body {
 .container {
     max-width: 1200px;
     padding: 0 30px;
-    margin: 0 auto;
+    margin: 80px auto 0;
 }
 
 body {
@@ -72,6 +72,11 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+input:focus,
+input:hover {
+    outline: none;
 }
 
 .loader {

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom"
  
 const HeaderTag = styled.header`
 position: fixed;
-z-index: 100000;
+z-index: 100;
 top: 0;
 left: 0; right: 0;
 width: 100%;
@@ -103,11 +103,11 @@ export default function Header({ cartShowed, setCartShowed, orders}) {
 					<NavBarUl>
 						<li>
 							<img src={BurgerSvg} alt="burger"/>
-							<Link to="/burgers">Бургеры</Link>
+							<Link to="menu/burgers">Бургеры</Link>
 						</li>
 						<li>
 							<img src={ColaSvg} alt="cola"/>
-							<Link to="/other">Напитки и прочее</Link>
+							<Link to="menu/other">Напитки и прочее</Link>
 						</li>
 					</NavBarUl>
 				</nav>
@@ -125,10 +125,12 @@ export default function Header({ cartShowed, setCartShowed, orders}) {
 					</ButtonLogout> 
 				</Wrapper>
 				:
-				<ButtonLogin onClick={logIn}>
-				<img src={loginImage} alt="login"></img>
-				<span>Войти</span>
-				</ButtonLogin>
+				<Link to="/registration">
+					<ButtonLogin onClick={()=>{}}>
+						<img src={loginImage} alt="login"></img>
+						<span>Войти</span>
+					</ButtonLogin>
+				</Link>
 				}
 				<ButtonCart className="cart">
 					<img src={CartSvg} alt="Cart" onClick={(evt) => setCartShowed(!cartShowed)}></img>

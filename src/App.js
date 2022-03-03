@@ -7,8 +7,13 @@ import ModalItem  from "./Components/Modal/ModalItem";
 import Order  from "./Components/Order/Order";
 import OrderConfirm from "./Components/Order/OrderConfirm";
 import OrderThanks from "./Components/Order/OrderThanks";
-import Profile from "./Components/Profile/Profile"
+import Profile from "./Components/Profile/Profile";
+import RegistrationPage from './Components/Auth/Registration';
 import { Routes, Route } from 'react-router-dom';
+import Layout from './Components/Layout';
+import LoginPage from './Components/Auth/LoginPage';
+import Context from './Components/Context/context';
+
 /* Hooks */
 import useOrder from "./Components/Hooks/useOrder";
 import useOpenItem from "./Components/Hooks/useOpenItem";
@@ -21,7 +26,7 @@ import useCartShowed from "./Components/Hooks/useCartShowed";
 import  firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database"; //вернет объект для управления базой данных
-import Context from './Components/Context/context';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBaiWc8gas0fdroCnbZG0u6WvtvF_xgwtU",
@@ -62,11 +67,15 @@ const App = () => {
             {...orderConfirmObj}
         />
         <Routes>
-          <Route path="/" element={<Menu/>}/>
-          <Route path="profile" element={<Profile/>}/>
+          <Route path="/" element={<Layout/>}>
+            <Route index element={<Menu/>}/>
+            <Route path="menu/*" element={<Menu/>}/>
+            <Route path="profile" element={<Profile/>}/>
+			<Route path="registration" element={<RegistrationPage dataBase={(firebase.database)()}/>} />
+          </Route>
         </Routes>
-        <Menu/>
-        {openItemObj.openItem && <ModalItem/>}\
+        {/* <Menu/> */}
+        {openItemObj.openItem && <ModalItem/>}
         { orderConfirmObj.openOrderConfirm && <OrderConfirm dataBase={(firebase.database)()} setOrderThanks={orderThanksObj.setOrderThanks} /> } 
         { orderThanksObj.orderThanks && <OrderThanks setOrderThanks={orderThanksObj.setOrderThanks}/>}
       </Context.Provider>

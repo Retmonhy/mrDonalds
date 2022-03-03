@@ -31,22 +31,21 @@ const Menu = ( ) => {
     const result = useFetch();
     const DBmenu = result.response;
     return (
-            <div className="container">
-                <MenuStyled>
-                <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
-                    {//если данные пришли result.response, то отображаем меню, иначе загрузку
-                        result.response ? 
-                        <Routes>
-                            <Route index element={<MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>}/>
-                            <Route path="/burgers" element={<MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>} />
-                            <Route path="/other" element={<MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other}/>} />
-                        </Routes>
-                        : result.error ? <div>Sorry, we already start fix the problem...</div>
-                        : <Loading/>
-                    }
-                </MenuStyled>    
-                <Outlet/>    
-            </div>
+        <>
+            <MenuStyled>
+            <BannerMenu> <img src={BannerPicture} alt='BannerPicture`'/></BannerMenu> 
+                {//если данные пришли result.response, то отображаем меню, иначе загрузку
+                    result.response ? 
+                    <Routes>
+                        <Route path="*" element={<MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>}/>
+                        <Route path="burgers" element={<MenuChapter chapterName='Бургеры' menuItems={DBmenu.burger}/>} />
+                        <Route path="other" element={<MenuChapter chapterName='Напитки и прочее' menuItems={DBmenu.other}/>} />
+                    </Routes>
+                    : result.error ? <div>Sorry, we already start fix the problem...</div>
+                    : <Loading/>
+                }
+            </MenuStyled>    
+        </>
     );
 }
 
