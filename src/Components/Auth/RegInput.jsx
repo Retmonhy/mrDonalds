@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useForm } from "react-hook-form";
 
 const InputWrapper = styled.div`
-margin-bottom: 15px;
+  margin-bottom: 15px;
 `;
 const InputLabel = styled.label`
   display: block;
@@ -19,34 +19,22 @@ const InputField = styled.input`
   border: none;
 `;
 const Small = styled.small`
-    color: red;
-    margin-top: 5px;
-    font-size: 14px;
+  color: red;
+  margin-top: 5px;
+  font-size: 10px;
 `;
 
-export const RegInput = ( { 
-    label, 
-    name, 
-    type, 
-    inputClass = '', 
-    placeholder = '',
-    valueState = '', 
-    changeFunc,
-    isRequire=false } ) => {
-  return(
-    <InputWrapper> 
-      <InputLabel> { label  + ": " } </InputLabel>
-      <InputField 
-        name={name} 
-        type={type} 
-        className={inputClass}
-        placeholder={ placeholder } 
-        value={valueState} 
-        required={isRequire}
-        onChange={ evt => { changeFunc(evt)}}
-        />
-        <Small>error message</Small>
+export const RegInput = ({ label, register, options }) => {
+  const { formState: { errors } } = useForm();
+  console.log(...options)
+  return (
+    <InputWrapper>
+      <InputLabel>
+      { label }
+        <InputField {...register(label, { ...options })}
+          />
+      <Small>{ errors?.inputName && <span>{errors?.inputName?.message || "Error"}</span> }</Small>
+      </InputLabel>
     </InputWrapper>
   );
-
-} 
+}
