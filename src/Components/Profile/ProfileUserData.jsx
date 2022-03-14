@@ -28,12 +28,10 @@ const ProfileUserData = () => {
         setValue,
         handleSubmit,
         clearErrors,
-        control,
         getFieldState,
-        formState: { errors },
-    } = useForm({ mode: 'onSubmit', reValidateMode: 'onBlur' });
-    // const { dirtyFields } = useFormState(control, "phone");
-
+        formState: { errors, dirtyFields },
+    } = useForm({ mode: 'onSubmit', reValidateMode: 'onBlur',
+    });
     //Заполнение всех полей в профиле данными из БД
     function fillFields() {
         Object.keys(currentUser).forEach((key) => setValue(key, currentUser[key]));
@@ -77,17 +75,15 @@ const ProfileUserData = () => {
                             }}
                         />
                         <PhoneInput
-                            placeholder={currentUser['phone'] || '+7 '}
+                            placeholder={currentUser?.phone || '+7 '}
                             disabled={params.edit ? false : true}
                             label='Телефон:'
                             name='phone'
                             options={{
                                 validate: {
                                     checkFullNum: (number) => {
-                                        if(!getFieldState('phone').isDirty) {
-                                            console.log(getFieldState('phone').isDirty)
-                                            return null;
-                                        }
+                                        if(!getFieldState('phone').isDirty) 
+                                        return null;
                                         if (number.replaceAll(/[^0-9]/g, '').length !== 11)
                                             return 'Введите полный номер';
                                     },

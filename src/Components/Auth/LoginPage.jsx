@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RegForm, FieldsWrapper, Small } from './RegistrationPage';
 import { FormInput } from './FormInput';
-import { SubmitInput } from '../Supp/SuppComp/SuppComp';
+import { SubmitInput, SmthWrap } from '../Supp/SuppComp/SuppComp';
 
 import { useForm, FormProvider } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
+import useAuth from '../Hooks/useGoogleAuth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 const LoginForm = styled(RegForm)``;
 
 const LoginPage = () => {
     const [signInError, setSignInError] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
+    const { logIn } = useAuth(firebase.auth);
     const {
         register,
         handleSubmit,
@@ -38,7 +41,10 @@ const LoginPage = () => {
     return (
         <FormProvider register={register} errors={errors}>
             <LoginForm onSubmit={handleSubmit(checkUser)}>
-                <h2>Авторизация: </h2>
+                <SmthWrap>
+                    <h2>Авторизация: </h2>
+                    <button onClick={logIn}>Google</button>
+                </SmthWrap>
                 <FieldsWrapper>
                     <>
                         <FormInput

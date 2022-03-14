@@ -9,7 +9,7 @@ const AuthPageWrapper = styled.div`
     max-width: 700px;
     padding: 20px;
     margin: 0 auto;
-    background-color: #f4f4f4;
+    background-color: #fff;
     border: 2px solid #299B01;
     border-radius: 10px;
     transform: translateY(100px);
@@ -17,7 +17,7 @@ const AuthPageWrapper = styled.div`
 `;
 const FormWrapper = styled.div``;
 const TabButtonsWrapper = styled.div`
-margin-bottom: 20px;
+/* padding-bottom: 20px; */
     display: flex;
     align-items: center; 
     justify-content: space-around;

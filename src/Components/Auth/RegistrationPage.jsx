@@ -11,12 +11,13 @@ import PhoneInput from '../FormComponents/PhoneInput';
 import Context from '../Context/context';
 
 export const RegForm = styled.form`
-    width: 90%;
+    width: 100%;
     min-width: 340px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     padding: 20px;
     border: 1px solid green;
-    border-radius: 10px;
+    border-radius: 0 0  10px 10px ;
+    border-top: 0;
     background: #f4f4f4;
     label {
         font-size: 16px;

@@ -1,16 +1,36 @@
 import { useEffect, useState } from "react";
-
+import { setInfoAboutUser } from "../Supp/SuppFunc/SuppFunctions";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/database'; //вернет объект для управ
 const useAuth = (authFirebase) => {
     const [ authentification, setAuthentification ] = useState(null);
+    const database = firebase.database();
     
     const auth = authFirebase(); //это объект  с авторизацией
 
     
     const provider = new authFirebase.GoogleAuthProvider(); 
-                            //также authFirebase мы испоьуем для метода GoogleAuthProvider, 
+                            //также authFirebase мы используем для метода GoogleAuthProvider, 
                             //чтобы создать провайдер и передать его в метод signInWithPopUp ниже
 
-    const logIn = () => auth.signInWithPopup(provider); //создали объект с авторизацией auth для того чтобы использовать метод signInWithPopUp() 
+    const logIn = () => auth.signInWithPopup(provider)
+                        .then(response => {
+                            const user = response.user;
+                            const userUid = user.uid;
+                            const data = {
+                                firstName: user.displayName.split(' ')[0] || '',
+                                secondName: user.displayName.split(' ')[1] || '',
+                                email: user.email || '',
+                                phone: user.phone ?? '',
+                            }
+                            setInfoAboutUser(userUid, data, database)
+                        })
+                        .catch(error => {
+                            console.log('error = ', error)
+                        })
+
+        ; //создали объект с авторизацией auth для того чтобы использовать метод signInWithPopUp() 
                     //метод signOut возвращает нам промис, его можно обработать как-то, но мы не будем
     const logOut = () => auth.signOut()
         // .then()

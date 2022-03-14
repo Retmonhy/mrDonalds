@@ -13,7 +13,7 @@ import AppRoutes from './Components/AppRoutes';
 import useOrder from './Components/Hooks/useOrder';
 import useOpenItem from './Components/Hooks/useOpenItem';
 import useTitle from './Components/Hooks/useTitle';
-import useAuth from './Components/Hooks/useAuth';
+import useAuth from './Components/Hooks/useGoogleAuth';
 import useOrderConfirm from './Components/Hooks/useOrderConfirm';
 import useOrderThanks from './Components/Hooks/useOrderTranks';
 import useCartShowed from './Components/Hooks/useCartShowed';
@@ -50,6 +50,7 @@ const App = () => {
     const removeFromOrders = (index) => {
         ordersObj.setOrders(ordersObj.orders.filter((order, i) => i !== index));
     };
+
 
     return (
         <Context.Provider
