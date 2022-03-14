@@ -10,8 +10,19 @@ export const ElemWrapper = styled.div`
 
 export const ButtonElem = styled.button`
   width: 250px;
-  padding: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
   margin: 0 auto;
+  background: #299b01;
+  border: none;
+  font-size: 21px;
+  color: #fff;
+`;
+export const SubmitInput = styled.input`
+  width: 250px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0 20px 0 0;
   background: #299b01;
   border: none;
   font-size: 21px;
@@ -53,3 +64,14 @@ export const ModalWindow = styled.div`
   box-shadow: 0 0 50px 10px #444;
   transform: translate(-50%, -50%);
 `;
+const Checkboxlabel = styled.label` display: inline-block; margin-bottom: 15px;`;
+export const CheckboxInput = ({ label, name = "checkbox", checkboxState, onCheckboxChange, ...props }) => {
+  return (
+    <>
+      <Checkboxlabel>
+        <input type="checkbox" name={name} {...props} checked={checkboxState} onChange={onCheckboxChange} />
+        {label}
+      </Checkboxlabel>
+    </>
+  );
+};

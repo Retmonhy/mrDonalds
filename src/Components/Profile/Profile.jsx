@@ -4,11 +4,11 @@ import Context from "../Context/context";
 import ProfileMenu from "./ProfiliMenu";
 import ProfileUserData from "./ProfileUserData";
 import s from "./Profile.module.css"
+import { Outlet } from "react-router-dom";
 
-
-
-
-const ProfileOuter = styled.div`
+const ProfileLayout = styled.div`
+    background: #fff;
+    padding: 20px;
 `;
 const ProfileWrapper = styled.div`
     width: 100%; 
@@ -21,18 +21,17 @@ const ProfileWrapper = styled.div`
     align-items: start;
     justify-content: space-between;
 `;
-const UserData = styled.div``;
 
 const Profile = () => {
     const { auth : { authentification } } = useContext(Context)
     return (
-        <>
-        <h2>Мой профиль</h2>
-        <ProfileWrapper className="profile-wrapper">
-            <ProfileMenu/>
-            <ProfileUserData/>
-        </ProfileWrapper>
-        </>
+        <ProfileLayout>
+            <h2>Мой профиль</h2>
+            <ProfileWrapper className="profile-wrapper">
+                <ProfileMenu/>
+                <Outlet/>
+            </ProfileWrapper>
+        </ProfileLayout>
     );
 }
 

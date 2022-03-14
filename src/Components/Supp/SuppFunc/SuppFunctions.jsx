@@ -1,3 +1,5 @@
+import firebase from "firebase/compat/app";
+import "firebase/compat/database"; //вернет объект для управления базой данных
 
 
 export const calcTotalCost = (price, amount, toppings ) => {
@@ -26,8 +28,18 @@ export const projection = rules => {
                 // ну а на массивах с одним свойством (name...) просто в объект вернется это свойство и закончим
                 //так можно добавлять много функции, которые  ибудут продолжать обрабатывать наши данные
     }
-
 };
+
+
+export const setInfoAboutUser = (uid, data, dataBase=firebase.database()) => {
+    dataBase.ref("users/" + uid).set({
+      firstName: data.firstName ?? "",
+      secondName: data.secondName ?? "",
+      email: data.email,
+      phone: data.phone ?? "" ,
+    });
+  };
+
 
 
 

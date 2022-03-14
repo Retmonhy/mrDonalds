@@ -14,6 +14,7 @@ const ModalWrap = styled(ModalWindow)`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    padding: 30px;
 `;
      
         //создаем новый объект, чтобы передавать более красивые и структурированные данные
@@ -27,38 +28,39 @@ const dataRules = {
 }
 
 
-const sendOrder = (dataBase, authentification, orders) => {
+const sendOrder = (dataBase, currentUser, orders) => {
     const newOrder = orders.map(projection(dataRules))
     dataBase.ref('order').push().set({
-        nameClient: authentification.displayName,
-        email: authentification.email,
+        nameClient: `${currentUser.secondName} ${currentUser.firstName}` || currentUser.email,
+        email: currentUser.email,
         order: newOrder,
     })
     // .then()
     .catch(error => console.log(error))
 }
-const OrderConfirm = ({  dataBase, setOrderThanks }) => {
-    const { auth: {authentification}} = useContext(Context);
+const OrderConfirm = ({ setOrderThanks }) => {
+    const { database } = useContext(Context);
     const { ordersObj: { orders, setOrders }} = useContext(Context);
     const { orderConfirmObj: { setOpenOrderConfirm }} = useContext(Context);
+    const { currentUser } = useContext(Context);
     return(
         <Overlay>
-                <ModalWrap>
-                    <ModalHeader>{ authentification.displayName }</ModalHeader>
-                    <Text>осталось только подтвердить Ваш заказ</Text>
-                    <OrderTotal orders={orders}/>
-                    <ElemWrapper>
-                        <ButtonElem 
+            <ModalWrap>
+                <ModalHeader>{ currentUser.firstName },</ModalHeader>
+                <Text>осталось только подтвердить Ваш заказ</Text>
+                <OrderTotal orders={orders}/>
+                <ElemWrapper>
+                    <ButtonElem 
                         onClick={() => 
-                            {sendOrder(dataBase, authentification, orders); 
+                            {sendOrder(database, currentUser, orders); 
                             setOrders([]); 
                             setOpenOrderConfirm(false);
-                            setOrderThanks(true)
+                            setOrderThanks(true);
                             }}>
                             Подтвердить
-                        </ButtonElem>
-                    </ElemWrapper>
-                </ModalWrap>
+                    </ButtonElem>
+                </ElemWrapper>
+            </ModalWrap>
         </Overlay>
     );
 }

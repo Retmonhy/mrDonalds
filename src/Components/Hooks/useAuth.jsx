@@ -24,7 +24,6 @@ const useAuth = (authFirebase) => {
             } else {setAuthentification(null)}
         })
     }, [auth, authentification])
-
     return { authentification, logIn, logOut }
                             // authentification - содержит все данные аутентифицировавшегося пользователя,
                             // login - функция, выполняет аутентификацию

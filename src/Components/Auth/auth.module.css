@@ -2,7 +2,34 @@
     box-shadow: 0 0 5px 2px red;
 }
 
-.succes {
+.success {
     box-shadow: 0 0 5px 2px green;
     position: relative;
+}
+.tabLink {
+    padding: 5px 0;
+    display: inline-block;
+    height: 40px;
+    min-width: 50%;
+    text-align: center;
+
+}
+.active {
+    border: 1px solid #299B01;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+    position: relative;
+}
+.active::before { 
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    background-color: #f4f4f4;
+
+}
+input:disabled {
+    background-color: rgba(145, 171, 201, 0.274);
 }

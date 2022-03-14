@@ -1,6 +1,8 @@
 .greenRound {
     border-radius: 10px;
     border: 1px solid #299B01;
-    background-color: #ccc;
-    ;
+    background-color: #f4f4f4;
+}
+.btn.cancelBtn { 
+    background-color: rgb(255, 85, 85);
 }

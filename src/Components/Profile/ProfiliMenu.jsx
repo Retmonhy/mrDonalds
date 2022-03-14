@@ -6,6 +6,7 @@ const SideNav = styled.div`
     max-width: 300px;
     width: 100%;
     padding: 25px;
+    margin-right: 20px;
     ul > li > a{
         color: #FFB632;
         text-decoration: none;
